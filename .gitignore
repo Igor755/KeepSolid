@@ -8,5 +8,10 @@ local.properties
 /gen/
 /build
 /captures
-*.apk
 *.iml
+<<<<<<< Updated upstream
+=======
+libs/
+src/main/res/drawable/
+app/src/main/res/drawable/
+>>>>>>> Stashed changes
