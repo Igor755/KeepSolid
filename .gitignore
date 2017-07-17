@@ -10,3 +10,5 @@ local.properties
 /captures
 *.apk
 *.iml
+libs/
+src/main/res/drawable/

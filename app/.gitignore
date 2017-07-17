@@ -8,5 +8,4 @@ local.properties
 /gen/
 /build
 /captures
-*.apk
 *.iml
