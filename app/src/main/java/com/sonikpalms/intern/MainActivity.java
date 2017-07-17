@@ -59,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-
+        
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
