@@ -55,11 +55,10 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("name", textView.getText().toString());
                     startActivityForResult(intent, 1);
                 }
-
             }
 
         });
-        
+
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
