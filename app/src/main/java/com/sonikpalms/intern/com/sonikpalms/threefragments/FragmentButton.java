@@ -16,7 +16,7 @@ public class FragmentButton extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_button, null);
+        View v = inflater.inflate(R.layout.fragment_button,container, false);
 
         Button buttonSend = (Button) v.findViewById(R.id.sendButton);
         Button buttonClear = (Button) v.findViewById(R.id.clearButton);

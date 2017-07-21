@@ -18,7 +18,7 @@ public class FragmentAccept extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_accept, null);
+        View v = inflater.inflate(R.layout.fragment_accept,container, false);
 
         Button button = (Button) v.findViewById(R.id.buttonAccept);
         button.setOnClickListener(new View.OnClickListener() {

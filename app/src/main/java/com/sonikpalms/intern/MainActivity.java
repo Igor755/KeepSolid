@@ -1,5 +1,7 @@
 package com.sonikpalms.intern;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.usage.UsageEvents;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,15 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.sonikpalms.intern.com.sonikpalms.threefragments.FragmentButton;
 
 import static android.R.attr.data;
 import static android.R.attr.name;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
 
-    private TextView textView;
-    private Button sendButton, clearButton;
+    //private TextView textView;
+   // private Button sendButton, clearButton;
 
 
     @Override
@@ -32,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Fragment frag2 = new FragmentButton();
+        //FragmentTransaction fragmentransaction = getFragmentManager().beginTransaction();
+        //fragmentransaction.add(R.id.FragmentButton, frag2);
+        //fragmentransaction.commit();
 
        /* textView = (TextView) findViewById(R.id.editText);
         sendButton = (Button) findViewById(R.id.sendButton);

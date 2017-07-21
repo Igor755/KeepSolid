@@ -17,7 +17,7 @@ public class FragmentReject extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_reject, null);
+        View v = inflater.inflate(R.layout.fragment_reject,container, false);
 
         Button buttonReject = (Button) v.findViewById(R.id.buttonReject);
 
