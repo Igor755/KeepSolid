@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        textView = (TextView) findViewById(R.id.editText);
+       /* textView = (TextView) findViewById(R.id.editText);
         sendButton = (Button) findViewById(R.id.sendButton);
         clearButton = (Button) findViewById(R.id.clearButton);
 
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         String name = data.getStringExtra("name");
-        textView.setText(name);
+        textView.setText(name);*/
     }
 
 
