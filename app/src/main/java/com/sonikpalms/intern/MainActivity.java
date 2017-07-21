@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Fragment frag2 = new FragmentButton();
-        //FragmentTransaction fragmentransaction = getFragmentManager().beginTransaction();
-        //fragmentransaction.add(R.id.FragmentButton, frag2);
-        //fragmentransaction.commit();
+        Fragment frag2 = new FragmentButton();
+        FragmentTransaction fragmentransaction = getFragmentManager().beginTransaction();
+        fragmentransaction.add(R.id.FragmentButton, frag2);
+        fragmentransaction.commit();
 
        /* textView = (TextView) findViewById(R.id.editText);
         sendButton = (Button) findViewById(R.id.sendButton);
