@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Fragment frag2 = new FragmentButton();
+        FragmentButton frag1 = new FragmentButton();
         FragmentTransaction fragmentransaction = getFragmentManager().beginTransaction();
-        fragmentransaction.add(R.id.FragmentButton, frag2);
+        fragmentransaction.add(R.id.fragment_button, frag1);
         fragmentransaction.commit();
 
        /* textView = (TextView) findViewById(R.id.editText);
