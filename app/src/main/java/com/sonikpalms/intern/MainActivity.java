@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+
         textView = (TextView) findViewById(R.id.editText);
         sendButton = (Button) findViewById(R.id.sendButton);
         clearButton = (Button) findViewById(R.id.clearButton);
