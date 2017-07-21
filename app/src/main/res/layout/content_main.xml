@@ -1,34 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:id="@+id/fragment_container">
 
-
-    <fragment
-        android:name="com.sonikpalms.intern.com.sonikpalms.threefragments.FragmentButton"
-        android:id="@+id/fragment_button"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        tools:layout="@layout/fragment_button"/>
-
-    <fragment
-        android:name="com.sonikpalms.intern.com.sonikpalms.threefragments.FragmentAccept"
-        android:id="@+id/fragment_accept"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        tools:layout="@layout/fragment_accept"/>
-
-    <fragment
-        android:name="com.sonikpalms.intern.com.sonikpalms.threefragments.FragmentReject"
-        android:id="@+id/fragment_reject"
-        android:layout_weight="1"
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
-        tools:layout="@layout/fragment_reject"/>
-
-
-
-
-</LinearLayout>
+</RelativeLayout>
