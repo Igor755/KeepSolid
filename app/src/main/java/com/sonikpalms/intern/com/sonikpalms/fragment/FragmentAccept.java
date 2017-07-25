@@ -7,8 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.sonikpalms.intern.MainActivity;
 import com.sonikpalms.intern.R;
 
+import static android.app.Activity.RESULT_OK;
+
+//enum CurrentSelectedFragment {
+  //  MAIN_FRAGMENT,
+   // TWO_FRAGMENT,
+   // THREE_FRAGMENT
 
 public class FragmentAccept extends Fragment {
 
@@ -21,6 +28,8 @@ public class FragmentAccept extends Fragment {
         Button button = (Button) v.findViewById(R.id.buttonAccept);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+               // (RESULT_OK);
+                //finish();
 
             }
         });

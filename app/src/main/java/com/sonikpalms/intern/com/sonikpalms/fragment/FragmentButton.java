@@ -11,53 +11,57 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.usage.UsageEvents;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.sonikpalms.intern.R;
 import com.sonikpalms.intern.Receiver;
+import com.sonikpalms.intern.MainActivity;
+
 
 
 public class FragmentButton extends Fragment {
+
+
+    private TextView TextView1;
+    private Button buttonSend, buttonClear;
+
+    private static final int REQUEST_CODE = 0;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_button,container, false);
+        View v = inflater.inflate(R.layout.fragment_button, container, false);
 
         Button buttonSend = (Button) v.findViewById(R.id.sendButton);
         Button buttonClear = (Button) v.findViewById(R.id.clearButton);
-        TextView TextView1 = (TextView) v.findViewById(R.id.editText);
-
-       // Context context = getActivity().getApplicationContext();
-        //LinearLayout layout = new LinearLayout(context);
-       // layout.addView(buttonSend);
-      //  layout.addView(buttonClear);
-      //  layout.addView(textView);
+        final TextView TextView1 = (TextView) v.findViewById(R.id.editText);
 
 
         buttonSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Receiver.class));
+
+                Intent i = Receiver.newIntent(getActivity(), TextView1.getText().toString());
+                startActivityForResult(i, REQUEST_CODE);
             }
+
         });
+
+
         buttonClear.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                }
 
 
-            }
+
+
+
         });
 
         return v;

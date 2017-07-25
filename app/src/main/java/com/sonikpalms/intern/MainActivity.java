@@ -1,33 +1,34 @@
 package com.sonikpalms.intern;
 
-import android.app.FragmentTransaction;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
-
-
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentAccept;
 import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentButton;
 import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentReject;
 
+import static com.sonikpalms.intern.MyFragments.FRAGMENT_ACCEPT;
+import static com.sonikpalms.intern.MyFragments.FRAGMENT_REJECT;
+
+
+enum MyFragments { MAIN_FRAGMENT, FRAGMENT_ACCEPT, FRAGMENT_REJECT}
+
+//import static android.R.attr.id;
+
+//import static com.sonikpalms.intern.R.*;
+
 public class MainActivity extends AppCompatActivity {
 
-    FragmentButton fragmentButton;
-    FragmentAccept fragmentAccept;
-    FragmentReject fragmentReject;
 
-
-    FrameLayout container;
-
-    final static String TAG_1 = "FRAGMENT_BUTTONS";
-    final static String TAG_2 = "FRAGMENT_ACCEPT";
-    final static String TAG_3 = "FRAGMENT_REJECT";
-
-
+    public Fragment fragmentbut, fragmentacc, fragmentrej;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +37,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        container = (FrameLayout) findViewById(R.id.fragment_container);
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new FragmentButton())
-
-                    .commit();
 
 
-        }
+         fragmentbut = new FragmentButton();
+         fragmentacc = new FragmentAccept();
+         fragmentrej = new FragmentReject();
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+             .add(R.id.fragment_container, fragmentbut)
+             .commit();
+
     }
+
+
 
 
     @Override
@@ -71,31 +75,54 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-       // if (data == null) {
-           // return;
+        System.out.println("232323223333333333333333333333333333333333333333333333333333333333333333333333");
 
-     //   } else {
-
-            if (resultCode == RESULT_CANCELED) {
-                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragmentReject);
-
-
-            } else if (resultCode == RESULT_OK) {
-                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragmentAccept);
-
-
+        if (data != null) {
+            if (resultCode == Receiver.RESULT_OK) {
+                Smena(FRAGMENT_ACCEPT);
+            } else {
+                Smena(FRAGMENT_REJECT);
 
             }
-            getSupportFragmentManager().beginTransaction().commit();
+        }
+
+    }
+    public void Smena(MyFragments smenaFrag) {
+
+        FragmentManager fm = getSupportFragmentManager();
+        System.out.println("23232322222222222222222222222222222222222222222222222222222");
+
+        switch (smenaFrag){
+            case MAIN_FRAGMENT:
+                fm.beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .replace(R.id.fragment_container, fragmentbut)
+                        .commit();
+                break;
+            case FRAGMENT_ACCEPT:
+                fm.beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .replace(R.id.fragment_container, fragmentacc)
+                        .commit();
+                break;
+            case FRAGMENT_REJECT:
+                fm.beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .replace(R.id.fragment_container, fragmentacc)
+                        .commit();
+                break;
         }
 
 
 
+        }
+
+
     }
-
-

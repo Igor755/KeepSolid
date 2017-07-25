@@ -1,5 +1,7 @@
 package com.sonikpalms.intern;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,11 +16,21 @@ import android.widget.Toast;
 import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentAccept;
 import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentButton;
 
-public class Receiver extends AppCompatActivity {
+import static android.app.PendingIntent.getActivity;
+import static android.content.Intent.EXTRA_EMAIL;
+
+public class Receiver extends AppCompatActivity implements View.OnClickListener {
 
 
     private TextView static_text;
     private Button acceptButton, rejectButton;
+
+
+    public static Intent newIntent(Context packageContext, String email) {
+        Intent i = new Intent(packageContext, Receiver.class);
+        i.putExtra(EXTRA_EMAIL, email);
+        return i;
+    }
 
 
     @Override
@@ -37,54 +49,25 @@ public class Receiver extends AppCompatActivity {
         String txtName = getIntent().getStringExtra("name");
         static_text.setText(static_text.getText().toString() + " " + txtName);
 
+        acceptButton.setOnClickListener(this);
+        rejectButton.setOnClickListener(this);
+    }
+        @Override
+        public void onClick(View view){
+            Intent intent = new Intent();
+            switch (view.getId()) {
+                case R.id.accept_button:
 
-        acceptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    break;
+                case R.id.reject_button:
 
-
-
-
-
-
-
-
-                Intent intent = new Intent(view.getContext(), MainActivity.class);
-
-                startActivity(intent);
-
-                Toast toastAccept = Toast.makeText(getApplicationContext(),
-                        "Accept!", Toast.LENGTH_SHORT);
-
-
-                toastAccept.show();
-
-
+                    setResult(RESULT_CANCELED, intent);
+                    finish();
+                    break;
             }
-
-        });
-        rejectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                Intent intent = new Intent();
-                intent.putExtra("name", static_text.getText().toString());
-                setResult(RESULT_OK, intent);
-
-
-
-                finish();
-                Toast toastReject = Toast.makeText(getApplicationContext(),
-                        "Reject!", Toast.LENGTH_SHORT);
-                toastReject.show();
-
-
-
-            }
-        });
-
-
+        }
     }
 
-}
+
