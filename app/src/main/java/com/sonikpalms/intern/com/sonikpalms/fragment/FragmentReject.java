@@ -12,6 +12,11 @@ import com.sonikpalms.intern.R;
 
 
 public class FragmentReject extends Fragment {
+
+   public final static String TAG = "FRAGMENT_REJECT";
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -20,11 +25,7 @@ public class FragmentReject extends Fragment {
         Button buttonReject = (Button) v.findViewById(R.id.buttonReject);
 
 
-        buttonReject.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-            }
-        });
+        buttonReject.setOnClickListener((View.OnClickListener) getActivity());
 
 
         return v;

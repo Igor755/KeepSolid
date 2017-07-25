@@ -10,27 +10,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/imageView2" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textViewReject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User declined the
-        address"
-        android:textSize="21sp"
-        android:layout_alignParentTop="true"
+        android:text="User declined the address"
+        android:textSize="10sp"
+        android:layout_above="@+id/buttonReject"
         android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@+id/buttonReject" />
+        android:layout_marginBottom="40dp" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/reject4" />
+        app:srcCompat="@drawable/reject4"
+        android:layout_above="@+id/textViewReject"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp" />
 
 </RelativeLayout>

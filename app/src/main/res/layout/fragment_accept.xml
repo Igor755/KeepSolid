@@ -6,34 +6,36 @@
     tools:context="com.sonikpalms.intern.com.sonikpalms.fragment.FragmentAccept">
 
 
-
-    <Button
-        android:id="@+id/buttonAccept"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
+
+        app:srcCompat="@drawable/accept3"
+        android:layout_marginTop="48dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/textViewAccept" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textViewAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User confirmed the
-        address"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="22sp"
-        android:layout_alignBottom="@+id/imageView" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+        android:text="User confirmed the address"
+        android:textSize="10sp"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/buttonAccept"
+        android:layout_width="77dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/accept3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+
+        android:text="OK"
+        android:layout_below="@+id/textViewAccept"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
 
 
 </RelativeLayout>

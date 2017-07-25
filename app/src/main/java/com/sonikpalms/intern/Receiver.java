@@ -57,12 +57,10 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
             Intent intent = new Intent();
             switch (view.getId()) {
                 case R.id.accept_button:
-
                     setResult(RESULT_OK, intent);
                     finish();
                     break;
                 case R.id.reject_button:
-
                     setResult(RESULT_CANCELED, intent);
                     finish();
                     break;

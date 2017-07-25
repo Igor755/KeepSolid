@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("232323223333333333333333333333333333333333333333333333333333333333333333333333");
 
         if (data != null) {
-            if (resultCode == Receiver.RESULT_OK) {
+            if (resultCode == MainActivity.RESULT_OK) {
                 Smena(FRAGMENT_ACCEPT);
             } else {
                 Smena(FRAGMENT_REJECT);
