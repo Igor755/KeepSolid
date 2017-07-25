@@ -18,7 +18,6 @@ import static com.sonikpalms.intern.MainActivity.MyFragmets.BUTTONS_FRAGMENTS;
 
 public class FragmentAccept extends Fragment {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
