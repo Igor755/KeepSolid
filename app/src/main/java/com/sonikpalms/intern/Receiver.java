@@ -26,13 +26,6 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
     private Button acceptButton, rejectButton;
 
 
-    public static Intent newIntent(Context packageContext, String email) {
-        Intent i = new Intent(packageContext, Receiver.class);
-        i.putExtra(EXTRA_EMAIL, email);
-        return i;
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,27 +38,28 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
         acceptButton = (Button) findViewById(R.id.accept_button);
         rejectButton = (Button) findViewById(R.id.reject_button);
 
-        // Принимаем имя
+        // Принимаем поле
         String txtName = getIntent().getStringExtra("name");
         static_text.setText(static_text.getText().toString() + " " + txtName);
 
         acceptButton.setOnClickListener(this);
         rejectButton.setOnClickListener(this);
     }
-        @Override
-        public void onClick(View view){
-            Intent intent = new Intent();
-            switch (view.getId()) {
-                case R.id.accept_button:
-                    setResult(RESULT_OK, intent);
-                    finish();
-                    break;
-                case R.id.reject_button:
-                    setResult(RESULT_CANCELED, intent);
-                    finish();
-                    break;
-            }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent();
+        switch (view.getId()) {
+            case R.id.accept_button:
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+            case R.id.reject_button:
+                setResult(RESULT_CANCELED, intent);
+                finish();
+                break;
         }
     }
+}
 
 

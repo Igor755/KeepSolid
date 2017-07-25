@@ -18,14 +18,12 @@ import com.sonikpalms.intern.Receiver;
 import com.sonikpalms.intern.MainActivity;
 
 
-
 public class FragmentButton extends Fragment {
 
 
     private TextView TextView1;
     private Button buttonSend, buttonClear;
 
-    private static final int REQUEST_CODE = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,22 +44,41 @@ public class FragmentButton extends Fragment {
         buttonSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent i = Receiver.newIntent(getActivity(), TextView1.getText().toString());
-                startActivityForResult(i, REQUEST_CODE);
-            }
+                if (TextView1.getText().toString().equals("")) {
 
+                    Toast toastEmptyText = Toast.makeText(getActivity().getApplicationContext(),
+                            "Please Enter text!", Toast.LENGTH_SHORT);
+                    toastEmptyText.show();
+
+                } else {
+
+                    Intent intent = new Intent(v.getContext(), Receiver.class);
+                    intent.putExtra("name", TextView1.getText().toString());
+                    startActivityForResult(intent, 1);
+                }
+            }
         });
 
 
         buttonClear.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                if (TextView1.getText().toString().equals("")) {
+
+
+                    Toast toastEmptyText = Toast.makeText(getActivity().getApplicationContext(),
+                            "TextView is Empty!", Toast.LENGTH_SHORT);
+                    toastEmptyText.show();
+
+
+                } else {
+
+
+                    TextView1.setText("");
+
                 }
 
-
-
-
-
+            }
         });
 
         return v;
