@@ -1,23 +1,13 @@
 package com.sonikpalms.intern;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentAccept;
-import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentButton;
-
-import static android.app.PendingIntent.getActivity;
-import static android.content.Intent.EXTRA_EMAIL;
 
 public class Receiver extends AppCompatActivity implements View.OnClickListener {
 
