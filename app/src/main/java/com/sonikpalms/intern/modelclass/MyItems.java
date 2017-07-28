@@ -27,9 +27,6 @@ public class MyItems {
         this.userAddress = userAddress;
     }
 
-    //public MyItems(boolean isOnline, String userName, Category taskCategory, int userId, String userAddress) {
-     //   this(isOnline, userName, taskCategory.Another, userId, userAddress);
-   // }
 
     public boolean isOnline() {
         return isOnline;
