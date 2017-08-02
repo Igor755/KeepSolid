@@ -12,19 +12,31 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.ListView;
 
+import com.sonikpalms.intern.adapters.MyAdapter;
 import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentAccept;
 import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentButton;
 import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentReject;
+import com.sonikpalms.intern.modelclass.MyItems;
+
+import java.util.ArrayList;
 
 import static com.sonikpalms.intern.MainActivity.MyFragmets.BUTTONS_FRAGMENTS;
 import static com.sonikpalms.intern.MainActivity.MyFragmets.FRAGMENTS_REJECT;
 import static com.sonikpalms.intern.MainActivity.MyFragmets.FRAGMENT_ACCEPT;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     public enum MyFragmets {FRAGMENT_ACCEPT, FRAGMENTS_REJECT, BUTTONS_FRAGMENTS}
+
+   // private ListView tasksListView;
+   // private MyAdapter adapter;
+   // private ArrayList<MyItems> items;
+
+
 
 
 
@@ -38,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
 
 
         fragmentbut = new FragmentButton();
