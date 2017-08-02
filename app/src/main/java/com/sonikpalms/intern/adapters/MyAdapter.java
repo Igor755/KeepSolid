@@ -2,6 +2,7 @@ package com.sonikpalms.intern.adapters;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,9 +51,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.getResources().getColor(R.color.orange);
+
                 if (listener != null) {
                     listener.onItemClick(view, viewHolder.getAdapterPosition());
+
 
 
                 }

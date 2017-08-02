@@ -57,8 +57,8 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
             category_item.setText("Family");
         } else if (intent.getSerializableExtra("UserCategory").equals(MyItems.Category.Another)){
             category_item.setText("Another");
-        } else if (intent.getSerializableExtra("UserCategory").equals(MyItems.Category.Family)) {
-            category_item.setText("Family");
+        } else if (intent.getSerializableExtra("UserCategory").equals(MyItems.Category.Friend)) {
+            category_item.setText("Friend");
         } else {
             category_item.setText("Work");
         }
