@@ -1,52 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical">
+    android:layout_height="wrap_content"
+
+    android:layout_marginTop="4dp">
 
 
     <RadioButton
         android:id="@+id/isOnline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="false"
         android:focusable="false"
-        android:text=""
-        android:clickable="false"/>
-
-
-
+        android:text="" />
 
     <TextView
         android:id="@+id/userName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Имя" />
-
+        android:text="Имя"
+        android:clickable="true"
+        android:layout_toEndOf="@+id/isOnline"
+        tools:ignore="HardcodedText,ObsoleteLayoutParam" />
 
     <LinearLayout
         android:id="@+id/main_block"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="117dp"
+        android:layout_height="31dp"
+        android:layout_below="@+id/isOnline"
+        android:orientation="vertical"
+        tools:ignore="ObsoleteLayoutParam">
 
         <TextView
             android:id="@+id/userId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="" />
 
         <TextView
             android:id="@+id/email_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="" />
 
         <TextView
             android:id="@+id/category_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="" />
 
     </LinearLayout>
 

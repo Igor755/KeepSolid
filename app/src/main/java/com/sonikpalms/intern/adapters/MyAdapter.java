@@ -1,6 +1,8 @@
 package com.sonikpalms.intern.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,96 +11,89 @@ import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.sonikpalms.intern.Listeners.OnItemsClickListener;
 import com.sonikpalms.intern.R;
 import com.sonikpalms.intern.modelclass.MyItems;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.sonikpalms.intern.modelclass.MyItems.Category.Family;
 
 /**
  * Created by i.metlin on 27.07.2017.
  */
 
-public class MyAdapter extends BaseAdapter {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
     private ArrayList<MyItems> items;
     private Context ctx;
+    OnItemsClickListener listener;
 
     public MyAdapter(ArrayList<MyItems> items, Context ctx) {
         this.items = items;
         this.ctx = ctx;
+
     }
 
-
-    @Override
-    public int getCount() {
-        return items.size();
-    }
-
-    @Override
-    public MyItems getItem(int position) {
-        return items.get(position);
+    public MyAdapter(ArrayList<MyItems> items, Context ctx, OnItemsClickListener listener) {
+        this.items = items;
+        this.ctx = ctx;
+        this.listener = listener;
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_one_item, viewGroup, false);
+        final ViewHolder viewHolder = new ViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.getResources().getColor(R.color.orange);
+                if (listener != null) {
+                    listener.onItemClick(view, viewHolder.getAdapterPosition());
+
+
+                }
+            }
+        });
+
+
+        return viewHolder;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
-        ViewHolder holder;
-        View view = convertView;
-
-        if (view == null) {
-            Log.e("TaskAdapter", "inflatingView!");
-            LayoutInflater inflater = LayoutInflater.from(ctx);
-            view = inflater.inflate(R.layout.list_one_item, viewGroup, false);
-
-            holder = new ViewHolder();
-
-            holder.isOnline = view.findViewById(R.id.isOnline);
-            holder.userName = (TextView) view.findViewById(R.id.userName);
-
-           // holder.userId = (TextView) view.findViewById(R.id.userId);
-            //holder.userAddress = (TextView) view.findViewById(R.id.email_item);
-            //holder.taskCategory = (TextView) view.findViewById(R.id.category_item);
-            //holder.userName = (TextView) view.findViewById(R.id.userName);
+        holder.isOnline.setChecked(items.get(position).isOnline());
+        holder.userName.setText(items.get(position).getUserName());
 
 
-            view.setTag(holder);
+
+        if (items.get(position).getTaskCategory().equals(MyItems.Category.Another))
+        {
+            holder.category_item.setText("Another");
+        } else if (items.get(position).getTaskCategory().equals(Family)) {
+            holder.category_item.setText("Family");
+        } else if (items.get(position).getTaskCategory().equals(MyItems.Category.Friend)) {
+            holder.category_item.setText("Friend");
         } else {
-            holder = (ViewHolder) view.getTag();
+            holder.category_item.setText("Work");
         }
-        holder.userName.setText(getItem(position).getUserName());
 
-        if(getItem(position).isOnline()){
+        if (items.get(position).isOnline()) {
             holder.isOnline.setChecked(true);
         } else {
             holder.isOnline.setChecked(false);
         }
 
-       // holder.isOnline.setChecked(getItem(position).isOnline());
-        //holder.userName.setText(getItem(position).getUserName());
-      //  holder.userId.setText(getItem(position).getUserName());
-      //  holder.userAddress.setText(getItem(position).getUserName());
-       // holder.taskCategory.setText(getItem(position).getUserName());
-       // holder.userName.setText(getItem(position).getUserName());
+    }
 
 
-        /*
-
-        holder.userName.setText(getItem(position).getUserName());
-
-        if(getItem(position).isOnline()){
-            holder.isOnline.setBackground(ContextCompat.getDrawable(ctx, R.drawable.accept2));
-        } else {
-            holder.isOnline.setBackground(ContextCompat.getDrawable(ctx, R.drawable.accept3));
-        }
-*/
-
-        return view;
+    @Override
+    public int getItemCount() {
+        return items.size();
     }
 
     public ArrayList<MyItems> getItems() {
@@ -110,15 +105,29 @@ public class MyAdapter extends BaseAdapter {
     }
 
 
-    private static class ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         RadioButton isOnline;
         TextView userName;
-        //TextView userId;
-        //TextView userAddress;
-        //TextView taskCategory;
+        TextView category_item;
+        TextView email_item;
 
 
 
+        public ViewHolder(View itemView) {
+            super(itemView);
+            //itemView.getResources().getColor(R.color.orange);
+            isOnline = (RadioButton) itemView.findViewById(R.id.isOnline);
+            userName = (TextView) itemView.findViewById(R.id.userName);
+            category_item = (TextView) itemView.findViewById(R.id.category_item);
+            email_item = (TextView) itemView.findViewById(R.id.email_item);
+
+
+
+
+        }
     }
+
+
 }
+
