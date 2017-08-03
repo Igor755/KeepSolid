@@ -8,12 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 
@@ -23,8 +17,9 @@ import com.sonikpalms.intern.Receiver;
 import com.sonikpalms.intern.MainActivity;
 import com.sonikpalms.intern.adapters.MyAdapter;
 import com.sonikpalms.intern.modelclass.MyItems;
-
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -61,6 +56,15 @@ public class FragmentButton extends Fragment {
         items.add(new MyItems(true, "vadimprov", MyItems.Category.Work, 16, "vadimprov@gmail.com"));
         items.add(new MyItems(false, "vladimir", MyItems.Category.Another, 17, "vladimir@gmail.com"));
         items.add(new MyItems(true, "vliubchenko", MyItems.Category.Work, 18, "vliubchenko@gmail.com"));
+
+
+        Collections.sort(items, new Comparator<MyItems> () {
+            @Override
+            public int compare(MyItems element1, MyItems element2) {
+                if (element1.isOnline() == true) return -1;
+                else return 0;
+            }
+        });
 
 
         tasksListView = (RecyclerView) v.findViewById(R.id.list_item);

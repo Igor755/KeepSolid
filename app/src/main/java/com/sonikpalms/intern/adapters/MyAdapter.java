@@ -1,6 +1,7 @@
 package com.sonikpalms.intern.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
@@ -45,7 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_one_item, viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +55,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
                 if (listener != null) {
                     listener.onItemClick(view, viewHolder.getAdapterPosition());
+                    view.setBackgroundColor(Color.YELLOW);
 
 
 
@@ -67,9 +69,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.userName.setText(items.get(position).getUserName());
 
         holder.isOnline.setChecked(items.get(position).isOnline());
-        holder.userName.setText(items.get(position).getUserName());
+
 
 
 
@@ -109,8 +112,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        RadioButton isOnline;
         TextView userName;
+        RadioButton isOnline;
+
         TextView category_item;
         TextView email_item;
 

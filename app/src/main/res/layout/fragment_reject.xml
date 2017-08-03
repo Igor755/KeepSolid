@@ -5,31 +5,34 @@
     android:layout_height="match_parent"
     tools:context="com.sonikpalms.intern.com.sonikpalms.fragment.FragmentReject">
 
-    <Button
-        android:id="@+id/buttonReject"
+
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
-        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/reject2"
+        android:layout_marginTop="48dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
     <TextView
         android:id="@+id/textViewReject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User declined the address"
         android:textSize="10sp"
-        android:layout_above="@+id/buttonReject"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/buttonReject"
+        android:layout_width="77dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/reject4"
-        android:layout_above="@+id/textViewReject"
+        android:text="OK"
+        android:layout_below="@+id/textViewReject"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginTop="16dp" />
+
+
+
 
 </RelativeLayout>
