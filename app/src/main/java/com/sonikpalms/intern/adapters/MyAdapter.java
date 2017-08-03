@@ -49,13 +49,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_one_item, viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(view);
+
+        //int backgroundColor = ContextCompat.getColor(this, R.color.orange);
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (listener != null) {
                     listener.onItemClick(view, viewHolder.getAdapterPosition());
-                    view.setBackgroundColor(Color.YELLOW);
+                    view.setBackgroundColor(Color.rgb(150, 156, 255));
 
 
 

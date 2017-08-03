@@ -37,7 +37,8 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
 
         acceptButton = (Button) findViewById(R.id.accept_button);
         rejectButton = (Button) findViewById(R.id.reject_button);
-        System.out.println("333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333");
+
+        System.out.println("3333333333333333333333333333333333333333333333333333333333333333333333");
 
 
         Intent intent = getIntent();
