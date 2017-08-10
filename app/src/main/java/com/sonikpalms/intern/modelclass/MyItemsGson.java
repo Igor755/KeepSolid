@@ -9,50 +9,71 @@ import com.google.gson.annotations.SerializedName;
 
 public class MyItemsGson {
 
-    @SerializedName("status")
+    @SerializedName("author")
     @Expose
-    private String status;
-    @SerializedName("source")
+    private Object author;
+    @SerializedName("title")
     @Expose
-    private String source;
-    @SerializedName("sortBy")
+    private String title;
+    @SerializedName("description")
     @Expose
-    private String sortBy;
-    @SerializedName("articles")
+    private String description;
+    @SerializedName("url")
     @Expose
-    private List<MyItems> articles = null;
+    private String url;
+    @SerializedName("urlToImage")
+    @Expose
+    private String urlToImage;
+    @SerializedName("publishedAt")
+    @Expose
+    private String publishedAt;
 
-    public String getStatus() {
-        return status;
+    public Object getAuthor() {
+        return author;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setAuthor(Object author) {
+        this.author = author;
     }
 
-    public String getSource() {
-        return source;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getSortBy() {
-        return sortBy;
+    public String getDescription() {
+        return description;
     }
 
-    public void setSortBy(String sortBy) {
-        this.sortBy = sortBy;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<MyItems> getArticles() {
-        return articles;
+    public String getUrl() {
+        return url;
     }
 
-    public void setArticles(List<MyItems> articles) {
-        this.articles = articles;
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrlToImage() {
+        return urlToImage;
+    }
+
+    public void setUrlToImage(String urlToImage) {
+        this.urlToImage = urlToImage;
+    }
+
+    public String getPublishedAt() {
+        return publishedAt;
+    }
+
+    public void setPublishedAt(String publishedAt) {
+        this.publishedAt = publishedAt;
     }
 
 }
-
