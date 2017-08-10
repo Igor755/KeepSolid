@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.sonikpalms.intern.modelclass.MyItems;
 
-import static com.sonikpalms.intern.modelclass.MyItems.Category.Family;
+//import static com.sonikpalms.intern.modelclass.MyItems.Category.Family;
 
 
 public class Receiver extends AppCompatActivity implements View.OnClickListener {
@@ -45,7 +45,7 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
         userName.setText(intent.getStringExtra("Username"));
 
 
-
+/*
         if (intent.getBooleanExtra("UserStatus", true)) {
             isOnline.setChecked(intent.getBooleanExtra("isOnline",true));
         } else {
@@ -63,7 +63,7 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
         } else {
             category_item.setText("Work");
         }
-        email_item.setText(intent.getStringExtra("UserAddress"));
+        email_item.setText(intent.getStringExtra("UserAddress"));*/
 
 
 

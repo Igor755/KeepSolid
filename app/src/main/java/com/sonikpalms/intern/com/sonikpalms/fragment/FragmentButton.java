@@ -9,8 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ProgressBar;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.sonikpalms.intern.InternetConnection.InternetConnection;
+import com.sonikpalms.intern.Link.Link;
+import com.sonikpalms.intern.Link.RetroClient;
 import com.sonikpalms.intern.Listeners.OnItemsClickListener;
 import com.sonikpalms.intern.R;
 import com.sonikpalms.intern.Receiver;
@@ -22,13 +28,35 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class FragmentButton extends Fragment {
+
+    private final String URL = "https://newsapi.org";
+    private final String KEY = "f95725ad56c04956b0f37a5a4e1d36b1";
+
+
 
 
     private RecyclerView tasksListView;
     private MyAdapter adapter;
-    private ArrayList<MyItems> items;
+    private ArrayList<Object> items;
+   // private Gson gson = new GsonBuilder().create();
+
+
+ //   private Retrofit retrofit = new Retrofit.Builder()
+    //        .addConverterFactory(GsonConverterFactory.create(gson))
+    //        .baseUrl(URL)
+     //       .build();
+
+ //   private Link inter = retrofit.create(Link.class);
+
+
 
 
     @Override
@@ -36,6 +64,39 @@ public class FragmentButton extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_button, container, false);
 
+        items = new ArrayList<>();
+
+        tasksListView = (RecyclerView) v.findViewById(R.id.list_item);
+
+        Link link = RetroClient.getApiService();
+        Call<MyItems> call = link.getMyJson();
+
+
+        call.enqueue(new Callback<MyItems>() {
+            @Override
+            public void onResponse(Call<MyItems> call, Response<MyItems> response) {
+                if(response.isSuccessful()){
+                  // items = response.body().MyItemsGson;
+                    tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    tasksListView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyItems> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+        if(InternetConnection.checkConnection(getActivity())){
+           // final ProgressDialog dialog;
+        }
+
+
+/*
         items = new ArrayList<>();
 
         items.add(new MyItems(false, "alexandr", MyItems.Category.Another, 1, "alexandr@gmail.com"));
@@ -98,7 +159,7 @@ public class FragmentButton extends Fragment {
         tasksListView.setAdapter(adapter);
 
 
-
+*/
         return v;
 
 

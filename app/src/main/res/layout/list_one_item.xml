@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
@@ -8,23 +9,37 @@
     android:layout_marginTop="4dp">
 
 
-    <RadioButton
-        android:id="@+id/isOnline"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/imageViewUrlToImage"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:text="" />
+        android:layout_weight="0.52"
+        app:srcCompat="@android:drawable/presence_invisible"
+        tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/userName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        android:layout_toEndOf="@+id/isOnline"
-        tools:ignore="HardcodedText,ObsoleteLayoutParam" />
+        <TextView
+            android:id="@+id/textViewPublishedAt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textViewUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/main_block"
@@ -35,23 +50,16 @@
         tools:ignore="ObsoleteLayoutParam">
 
         <TextView
-            android:id="@+id/userId"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text="TextView" />
 
         <TextView
-            android:id="@+id/email_item"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewAuthor"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="" />
-
-        <TextView
-            android:id="@+id/category_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-
+            android:text="TextView" />
     </LinearLayout>
 
 </LinearLayout>
