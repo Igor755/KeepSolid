@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.*;
 import com.sonikpalms.intern.InternetConnection.InternetConnection;
 import com.sonikpalms.intern.Link.Link;
 import com.sonikpalms.intern.Link.RetroClient;
@@ -23,6 +25,9 @@ import com.sonikpalms.intern.Receiver;
 import com.sonikpalms.intern.MainActivity;
 import com.sonikpalms.intern.adapters.MyAdapter;
 import com.sonikpalms.intern.modelclass.MyItems;
+import com.sonikpalms.intern.modelclass.MyItemsGson;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,6 +40,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
+import static com.sonikpalms.intern.R.id.imageView;
+import static com.sonikpalms.intern.R.id.imageViewUrlToImage;
+
+
 public class FragmentButton extends Fragment {
 
     private final String URL = "https://newsapi.org";
@@ -45,8 +54,12 @@ public class FragmentButton extends Fragment {
 
     private RecyclerView tasksListView;
     private MyAdapter adapter;
-    private ArrayList<Object> items;
-   // private Gson gson = new GsonBuilder().create();
+    private List<MyItems> items;
+    private Gson gson = new GsonBuilder().create();
+    private ImageView imageViewSpecial;
+    //private  Context ctx;
+    //private url
+
 
 
  //   private Retrofit retrofit = new Retrofit.Builder()
@@ -60,33 +73,46 @@ public class FragmentButton extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_button, container, false);
 
         items = new ArrayList<>();
+       // adapter = new MyAdapter(items,getContext());
 
         tasksListView = (RecyclerView) v.findViewById(R.id.list_item);
+        imageViewSpecial = (ImageView) v.findViewById(R.id.imageViewUrlToImage);
+
+
+
+
+
 
         Link link = RetroClient.getApiService();
-        Call<MyItems> call = link.getMyJson();
+        Call<MyItemsGson> call = link.getMyJson();
 
 
-        call.enqueue(new Callback<MyItems>() {
+        call.enqueue(new Callback<MyItemsGson>() {
             @Override
-            public void onResponse(Call<MyItems> call, Response<MyItems> response) {
+            public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
                 if(response.isSuccessful()){
-                  // items = response.body().MyItemsGson;
+
+                    System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222");
+                    items = response.body().getArticles();
+
+
+                    adapter = new MyAdapter((ArrayList<MyItems>) items,getActivity().getBaseContext());
                     tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     tasksListView.setAdapter(adapter);
                 }
             }
 
             @Override
-            public void onFailure(Call<MyItems> call, Throwable t) {
+            public void onFailure(Call<MyItemsGson> call, Throwable t) {
 
             }
         });
+
 
 
 

@@ -1,6 +1,7 @@
 package com.sonikpalms.intern.Link;
 
 import com.sonikpalms.intern.modelclass.MyItems;
+import com.sonikpalms.intern.modelclass.MyItemsGson;
 
 import java.util.Map;
 import java.util.Objects;
@@ -17,6 +18,6 @@ import retrofit2.http.POST;
 
 public interface Link {
    // @FormUrlEncoded
-    @GET("/bbc-sport-api")
-    Call<MyItems> getMyJson();
+    @GET("v1/articles?source=the-times-of-india&sortBy=top&apiKey=ee4f08cf787540f5be2b9276684e9efe")
+    Call<MyItemsGson> getMyJson();
 }

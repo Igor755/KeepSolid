@@ -7,34 +7,57 @@ package com.sonikpalms.intern.modelclass;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
+import java.util.List;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MyItems {
+
     @SerializedName("author")
     @Expose
-    private String author;
+    private Object author;
+
     @SerializedName("title")
     @Expose
     private String title;
+
     @SerializedName("description")
     @Expose
     private String description;
+
     @SerializedName("url")
     @Expose
     private String url;
+
     @SerializedName("urlToImage")
     @Expose
-    private String urlToImage;
+    public String urlToImage;
+
     @SerializedName("publishedAt")
     @Expose
     private String publishedAt;
 
-    public String getAuthor() {
+    public MyItems(Object author, String title, String description, String url, String urlToImage, String publishedAt) {
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
+        this.publishedAt = publishedAt;
+    }
+
+
+    public Object getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Object author) {
         this.author = author;
     }
 
@@ -77,58 +100,35 @@ public class MyItems {
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
     }
-    public class MyItemsGson {
 
-        @SerializedName("status")
-        @Expose
-        private String status;
-        @SerializedName("source")
-        @Expose
-        private String source;
-        @SerializedName("sortBy")
-        @Expose
-        private String sortBy;
-        @SerializedName("articles")
-        @Expose
-        private List<MyItems> articles = null;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        public String getStatus() {
-            return status;
-        }
+        MyItems that = (MyItems) o;
 
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        public String getSource() {
-            return source;
-        }
-
-        public void setSource(String source) {
-            this.source = source;
-        }
-
-        public String getSortBy() {
-            return sortBy;
-        }
-
-        public void setSortBy(String sortBy) {
-            this.sortBy = sortBy;
-        }
-
-        public List<MyItems> getArticles() {
-            return articles;
-        }
-
-        public void setArticles(List<MyItems> articles) {
-            this.articles = articles;
-        }
+        return author == that.author;
 
     }
 
+    @Override
+    public String toString() {
+        return "MyItems{" +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                ", urlToImage='" + urlToImage + '\'' +
+                ", publishedAt='" + publishedAt + '\'' +
+                '}';
+    }
 
 
 }
+
+
+
 
 /*
     private boolean isOnline;

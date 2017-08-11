@@ -18,9 +18,12 @@ import android.widget.TextView;
 import com.sonikpalms.intern.Listeners.OnItemsClickListener;
 import com.sonikpalms.intern.R;
 import com.sonikpalms.intern.modelclass.MyItems;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.sonikpalms.intern.R.id.imageViewUrlToImage;
 
 //import static com.sonikpalms.intern.modelclass.MyItems.Category.Family;
 
@@ -75,12 +78,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.imageViewUrlToImage.setImageDrawable(Drawable.createFromPath(items.get(position).getUrlToImage()));
+
+     //   Picasso.with(ctx)
+            //    .load(items.get(position.getUrlToImage))
+            //    .into(holder.imageViewUrlToImage);
+
+
+        //holder.imageViewUrlToImage.setImageDrawable(Drawable.createFromPath(items.get(position).getUrlToImage()));
         holder.textViewPublishedAt.setText(items.get(position).getPublishedAt());
         holder.textViewUrl.setText(items.get(position).getUrl());
         holder.textViewDescription.setText(items.get(position).getDescription());
         holder.textViewTitle.setText(items.get(position).getTitle());
-        holder.textViewAuthor.setText(items.get(position).getAuthor());
+        holder.textViewAuthor.setText((Integer) items.get(position).getAuthor());
 
 
 
@@ -118,7 +127,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            imageViewUrlToImage = (ImageView)itemView.findViewById(R.id.imageViewUrlToImage);
+            imageViewUrlToImage = (ImageView) itemView.findViewById(R.id.imageViewUrlToImage);
             textViewPublishedAt = (TextView) itemView.findViewById(R.id.textViewPublishedAt);
             textViewUrl = (TextView) itemView.findViewById(R.id.textViewUrl);
             textViewDescription = (TextView) itemView.findViewById(R.id.textViewDescription);
