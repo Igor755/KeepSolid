@@ -1,66 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
-    android:layout_marginTop="4dp">
+    android:layout_marginTop="4dp"
+    android:weightSum="1">
 
 
     <ImageView
         android:id="@+id/imageViewUrlToImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_weight="1"
         app:srcCompat="@android:drawable/presence_invisible"
-        tools:ignore="ContentDescription,InefficientWeight,Suspicious0dp" />
+        tools:ignore="ContentDescription,InefficientWeight,Suspicious0dp"
+        android:layout_alignParentStart="true" />
+
 
     <TextView
         android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="100dp"
         android:text="TextView"
-        tools:ignore="HardcodedText" />
-
+        tools:ignore="HardcodedText"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imageViewUrlToImage"
+        android:layout_marginStart="23dp" />
 
     <LinearLayout
         android:id="@+id/main_block"
-        android:layout_width="117dp"
+        android:layout_width="wrap_content"
         android:layout_height="31dp"
-        android:layout_below="@+id/isOnline"
         android:orientation="horizontal"
-        tools:ignore="ObsoleteLayoutParam">
+        tools:ignore="ObsoleteLayoutParam"
+        android:layout_weight="0.49"
+        android:layout_below="@+id/textViewTitle"
+        android:layout_toEndOf="@+id/imageViewUrlToImage">
+
 
         <TextView
             android:id="@+id/textViewPublishedAt"
-            android:layout_width="390dp"
-            android:layout_height="50dp"
-            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text=""
             tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/textViewUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
             tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/textViewDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
             tools:ignore="HardcodedText" />
-
 
         <TextView
             android:id="@+id/textViewAuthor"
-            android:layout_width="match_parent"
+            android:layout_width="194dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
             tools:ignore="HardcodedText" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

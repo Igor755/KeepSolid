@@ -50,8 +50,6 @@ public class FragmentButton extends Fragment {
     private final String KEY = "f95725ad56c04956b0f37a5a4e1d36b1";
 
 
-
-
     private RecyclerView tasksListView;
     private MyAdapter adapter;
     private List<MyItems> items;
@@ -61,15 +59,12 @@ public class FragmentButton extends Fragment {
     //private url
 
 
-
- //   private Retrofit retrofit = new Retrofit.Builder()
+    //   private Retrofit retrofit = new Retrofit.Builder()
     //        .addConverterFactory(GsonConverterFactory.create(gson))
     //        .baseUrl(URL)
-     //       .build();
+    //       .build();
 
- //   private Link inter = retrofit.create(Link.class);
-
-
+    //   private Link inter = retrofit.create(Link.class);
 
 
     @Override
@@ -78,35 +73,29 @@ public class FragmentButton extends Fragment {
         View v = inflater.inflate(R.layout.fragment_button, container, false);
 
         items = new ArrayList<>();
-       // adapter = new MyAdapter(items,getContext());
+        // adapter = new MyAdapter(items,getContext());
 
         tasksListView = (RecyclerView) v.findViewById(R.id.list_item);
         imageViewSpecial = (ImageView) v.findViewById(R.id.imageViewUrlToImage);
-
-
-
-
 
 
         Link link = RetroClient.getApiService();
         Call<MyItemsGson> call = link.getMyJson();
 
 
-
-
-
         call.enqueue(new Callback<MyItemsGson>() {
             @Override
             public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222");
                     items = response.body().getArticles();
 
 
-                    adapter = new MyAdapter((ArrayList<MyItems>) items,getActivity().getBaseContext());
+                    adapter = new MyAdapter((ArrayList<MyItems>) items, getActivity().getBaseContext());
                     tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     tasksListView.setAdapter(adapter);
+
                 }
             }
 
@@ -115,10 +104,17 @@ public class FragmentButton extends Fragment {
 
             }
         });
+        //tasksListView.setOnClickListener(new OnItemsClickListener() {
 
 
+      //      @Override
+      //      public void onItemClick(View v, int position) {
+
+       //     }
+     //   });
 
 
+/*
         adapter = new MyAdapter((ArrayList<MyItems>) items, getActivity(), new OnItemsClickListener() {
 
 

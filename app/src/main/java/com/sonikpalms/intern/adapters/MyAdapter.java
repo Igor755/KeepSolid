@@ -81,15 +81,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
             Picasso.with(ctx)
                     .load((items.get(position).getUrlToImage()))
-                    .resize(50,50)
+                    //.resize(50,50)
                     .into(holder.imageViewUrlToImage);
 
 
        // holder.imageViewUrlToImage.setImageDrawable(Drawable.createFromPath(items.get(position).getUrlToImage()));
-        holder.textViewPublishedAt.setText(items.get(position).getPublishedAt());
-        holder.textViewUrl.setText(items.get(position).getUrl());
-        holder.textViewDescription.setText(items.get(position).getDescription());
-        holder.textViewTitle.setText(items.get(position).getTitle());
+      // holder.textViewPublishedAt.setText(items.get(position).getPublishedAt());
+     //   holder.textViewUrl.setText(items.get(position).getUrl());
+       // holder.textViewDescription.setText(items.get(position).getDescription());
+       holder.textViewTitle.setText(items.get(position).getTitle());
      //   holder.textViewAuthor.setText((Integer) items.get(position).getAuthor());
 
 
