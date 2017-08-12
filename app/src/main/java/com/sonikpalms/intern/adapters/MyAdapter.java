@@ -79,17 +79,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
 
 
-     //   Picasso.with(ctx)
-            //    .load(items.get(position.getUrlToImage))
-            //    .into(holder.imageViewUrlToImage);
+            Picasso.with(ctx)
+                    .load((items.get(position).getUrlToImage()))
+                    .resize(50,50)
+                    .into(holder.imageViewUrlToImage);
 
 
-        //holder.imageViewUrlToImage.setImageDrawable(Drawable.createFromPath(items.get(position).getUrlToImage()));
+       // holder.imageViewUrlToImage.setImageDrawable(Drawable.createFromPath(items.get(position).getUrlToImage()));
         holder.textViewPublishedAt.setText(items.get(position).getPublishedAt());
         holder.textViewUrl.setText(items.get(position).getUrl());
         holder.textViewDescription.setText(items.get(position).getDescription());
         holder.textViewTitle.setText(items.get(position).getTitle());
-        holder.textViewAuthor.setText((Integer) items.get(position).getAuthor());
+     //   holder.textViewAuthor.setText((Integer) items.get(position).getAuthor());
 
 
 
@@ -109,6 +110,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void setItems(ArrayList<MyItems> items) {
         this.items = items;
     }
+
+
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

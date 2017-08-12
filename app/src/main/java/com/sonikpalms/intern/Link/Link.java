@@ -18,6 +18,6 @@ import retrofit2.http.POST;
 
 public interface Link {
    // @FormUrlEncoded
-    @GET("v1/articles?source=the-times-of-india&sortBy=top&apiKey=ee4f08cf787540f5be2b9276684e9efe")
+    @GET("v1/articles?source=the-times-of-india&sortBy=latest&apiKey=ee4f08cf787540f5be2b9276684e9efe")
     Call<MyItemsGson> getMyJson();
 }

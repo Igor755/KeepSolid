@@ -92,6 +92,9 @@ public class FragmentButton extends Fragment {
         Call<MyItemsGson> call = link.getMyJson();
 
 
+
+
+
         call.enqueue(new Callback<MyItemsGson>() {
             @Override
             public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
@@ -116,6 +119,32 @@ public class FragmentButton extends Fragment {
 
 
 
+        adapter = new MyAdapter((ArrayList<MyItems>) items, getActivity(), new OnItemsClickListener() {
+
+
+            @Override
+            public void onItemClick(View v, int position) {
+
+                Intent intent = new Intent(getContext(), Receiver.class);
+
+
+                intent.putExtra("Username", items.get(position).getTitle());
+                intent.putExtra("UserID", items.get(position).getUrl());
+                intent.putExtra("UserStatus", items.get(position).getDescription());
+                intent.putExtra("UserAddress", items.get(position).getPublishedAt());
+                intent.putExtra("UserCategory", items.get(position).getUrlToImage());
+                startActivityForResult(intent, 1);
+
+
+            }
+        });
+
+        //tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //tasksListView.setAdapter(adapter);
+
+
+
+
 
         if(InternetConnection.checkConnection(getActivity())){
            // final ProgressDialog dialog;
@@ -134,6 +163,7 @@ public class FragmentButton extends Fragment {
         items.add(new MyItems(false, "cherepinina98", MyItems.Category.Another, 7, "cherepinina98@gmail.com"));
         items.add(new MyItems(true, "d.shevtsov ", MyItems.Category.Friend, 8, "d.shevtsov@gmail.com"));
         items.add(new MyItems(false, "dima_pd", MyItems.Category.Another, 9, "dima_pd@gmail.com"));
+
         items.add(new MyItems(true, "dmitriiserdun", MyItems.Category.Family, 10, "dmitriiserdun@gmail.com"));
         items.add(new MyItems(true, "eugene", MyItems.Category.Family, 11, "eugene@gmail.com"));
         items.add(new MyItems(false, "nedomovnyvlad", MyItems.Category.Friend, 12, "nedomovnyvlad@gmail.com"));
