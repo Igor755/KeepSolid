@@ -92,7 +92,25 @@ public class FragmentButton extends Fragment {
                     items = response.body().getArticles();
 
 
-                    adapter = new MyAdapter((ArrayList<MyItems>) items, getActivity().getBaseContext());
+                    adapter = new MyAdapter((ArrayList<MyItems>) items, getActivity(), new OnItemsClickListener() {
+
+
+                        @Override
+                        public void onItemClick(View v, int position) {
+
+                            Intent intent = new Intent(getContext(), Receiver.class);
+
+
+                           // intent.putExtra("Username", items.get(position).getTitle());
+                            intent.putExtra("urlNews", items.get(position).getUrl());
+                         //   intent.putExtra("UserStatus", items.get(position).getDescription());
+                         //   intent.putExtra("UserAddress", items.get(position).getPublishedAt());
+                         //   intent.putExtra("UserCategory", items.get(position).getUrlToImage());
+                            startActivityForResult(intent, 1);
+
+
+                        }
+                    });
                     tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     tasksListView.setAdapter(adapter);
 

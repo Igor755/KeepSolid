@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -17,9 +19,10 @@ import com.sonikpalms.intern.modelclass.MyItems;
 public class Receiver extends AppCompatActivity implements View.OnClickListener {
 
 
-    private TextView userName, category_item, email_item;
+    //private TextView userName, category_item, email_item;
     private Button acceptButton, rejectButton;
-    private RadioButton isOnline;
+    // private RadioButton isOnline;
+    private WebView webView;
 
 
     @Override
@@ -29,46 +32,39 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        isOnline = (RadioButton) findViewById(R.id.isOnline);
-        userName = (TextView) findViewById(R.id.userName);
-        category_item = (TextView) findViewById(R.id.category_item);
-        email_item = (TextView) findViewById(R.id.email_item);
-
 
         acceptButton = (Button) findViewById(R.id.accept_button);
         rejectButton = (Button) findViewById(R.id.reject_button);
-
-        System.out.println("f95725ad56c04956b0f37a5a4e1d36b1");
-
-
-        Intent intent = getIntent();
-        userName.setText(intent.getStringExtra("Username"));
-
-
-/*
-        if (intent.getBooleanExtra("UserStatus", true)) {
-            isOnline.setChecked(intent.getBooleanExtra("isOnline",true));
-        } else {
-            isOnline.setChecked(intent.getBooleanExtra("isOnline",false));
-        }
-
-
-        if (intent.getSerializableExtra("UserCategory").equals(MyItems.Category.Family))
-        {
-            category_item.setText("Family");
-        } else if (intent.getSerializableExtra("UserCategory").equals(MyItems.Category.Another)){
-            category_item.setText("Another");
-        } else if (intent.getSerializableExtra("UserCategory").equals(MyItems.Category.Friend)) {
-            category_item.setText("Friend");
-        } else {
-            category_item.setText("Work");
-        }
-        email_item.setText(intent.getStringExtra("UserAddress"));*/
-
-
-
         acceptButton.setOnClickListener(this);
         rejectButton.setOnClickListener(this);
+
+        webView = (WebView) findViewById(R.id.webView);
+        //webView.loadUrl("http://www.example.com");
+        webView.getSettings().setJavaScriptEnabled(true);
+        Intent intent = getIntent();
+        webView.loadUrl(intent.getStringExtra("urlNews"));
+
+
+        webView.setWebViewClient(new MyWebViewClient());
+
+    }
+    @Override
+    public void onBackPressed() {
+        if(webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+
+
     }
 
     @Override

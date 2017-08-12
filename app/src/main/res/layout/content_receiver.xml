@@ -14,9 +14,8 @@
         android:layout_height="wrap_content"
         android:text="Reject"
         tools:ignore="HardcodedText"
-        android:layout_alignBaseline="@+id/accept_button"
-        android:layout_alignBottom="@+id/accept_button"
-        android:layout_toEndOf="@+id/email_item" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/accept_button"
@@ -24,48 +23,17 @@
         android:layout_height="wrap_content"
         android:text="Send"
         tools:ignore="HardcodedText"
-        android:layout_marginTop="33dp"
-        android:layout_below="@+id/email_item"
-        android:layout_toStartOf="@+id/email_item" />
-
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="24dp"
-        tools:ignore="HardcodedText,SpUsage"
-        android:layout_alignBottom="@+id/isOnline"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/category_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="петух"
-        tools:ignore="HardcodedText"
-        android:layout_marginTop="13dp"
-        android:layout_below="@+id/isOnline"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/email_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:ignore="HardcodedText"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/category_item"
-        android:layout_centerHorizontal="true" />
-
-    <RadioButton
-        android:id="@+id/isOnline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_marginTop="16dp"
-        tools:ignore="HardcodedText"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/accept_button"
-        android:layout_marginStart="15dp" />
+        android:layout_alignParentStart="true" />
+
+
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/reject_button"
+        android:layout_alignParentStart="true" />
+
+
 </RelativeLayout>
