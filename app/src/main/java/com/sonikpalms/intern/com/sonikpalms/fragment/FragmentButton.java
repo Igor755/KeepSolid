@@ -111,11 +111,11 @@ public class FragmentButton extends Fragment {
                             Intent intent = new Intent(getContext(), Receiver.class);
 
 
-                           // intent.putExtra("Username", items.get(position).getTitle());
+                            // intent.putExtra("Username", items.get(position).getTitle());
                             intent.putExtra("urlNews", items.get(position).getUrl());
-                         //   intent.putExtra("UserStatus", items.get(position).getDescription());
-                         //   intent.putExtra("UserAddress", items.get(position).getPublishedAt());
-                         //   intent.putExtra("UserCategory", items.get(position).getUrlToImage());
+                            //   intent.putExtra("UserStatus", items.get(position).getDescription());
+                            //   intent.putExtra("UserAddress", items.get(position).getPublishedAt());
+                            //   intent.putExtra("UserCategory", items.get(position).getUrlToImage());
                             startActivityForResult(intent, 1);
 
 
@@ -129,17 +129,19 @@ public class FragmentButton extends Fragment {
 
             @Override
             public void onFailure(Call<MyItemsGson> call, Throwable t) {
+                //// TODO: 15.08.2017 write on failure
+
 
             }
         });
         //tasksListView.setOnClickListener(new OnItemsClickListener() {
 
 
-      //      @Override
-      //      public void onItemClick(View v, int position) {
+        //      @Override
+        //      public void onItemClick(View v, int position) {
 
-       //     }
-     //   });
+        //     }
+        //   });
 
 
 /*
@@ -169,7 +171,7 @@ public class FragmentButton extends Fragment {
 
 
 
-
+//todo use internetconnection
         if(InternetConnection.checkConnection(getActivity())){
            // final ProgressDialog dialog;
         }
