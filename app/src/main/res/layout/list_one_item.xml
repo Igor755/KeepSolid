@@ -10,10 +10,54 @@
     android:weightSum="1">
 
 
+    <TextView
+        android:id="@+id/textViewUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        tools:ignore="HardcodedText"
+
+        android:layout_above="@+id/textViewDescription"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="123123"
+        android:textSize="12dp"
+        tools:ignore="HardcodedText"
+
+        android:layout_below="@+id/imageViewUrlToImage" />
+
+    <TextView
+        android:id="@+id/textViewAuthor"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold|italic"
+        android:textSize="12dp"
+        android:text="123123"
+        tools:ignore="HardcodedText"
+        android:layout_below="@+id/textViewTitle"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textViewPublishedAt"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold|italic"
+        android:textSize="10dp"
+
+        android:text=""
+        tools:ignore="HardcodedText"
+        android:layout_marginTop="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
     <ImageView
         android:id="@+id/imageViewUrlToImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:srcCompat="@android:drawable/presence_invisible"
         tools:ignore="ContentDescription,InefficientWeight,Suspicious0dp"
         android:layout_alignParentStart="true" />
@@ -21,56 +65,13 @@
 
     <TextView
         android:id="@+id/textViewTitle"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="100dp"
+        android:textSize="14dp"
+        android:textStyle="bold|italic"
         android:text="TextView"
         tools:ignore="HardcodedText"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/imageViewUrlToImage"
-        android:layout_marginStart="23dp" />
-
-    <LinearLayout
-        android:id="@+id/main_block"
-        android:layout_width="wrap_content"
-        android:layout_height="31dp"
-        android:orientation="horizontal"
-        tools:ignore="ObsoleteLayoutParam"
-        android:layout_weight="0.49"
-        android:layout_below="@+id/textViewTitle"
-        android:layout_toEndOf="@+id/imageViewUrlToImage">
-
-
-        <TextView
-            android:id="@+id/textViewPublishedAt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:text=""
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/textViewUrl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/textViewDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/textViewAuthor"
-            android:layout_width="194dp"
-            android:layout_height="wrap_content"
-            android:text=""
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
+        android:layout_below="@+id/textViewPublishedAt"
+        android:layout_alignStart="@+id/textViewPublishedAt" />
 
 </RelativeLayout>

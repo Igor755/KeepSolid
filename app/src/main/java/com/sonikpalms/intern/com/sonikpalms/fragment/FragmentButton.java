@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.*;
+import com.sonikpalms.intern.Base.Database;
 import com.sonikpalms.intern.InternetConnection.InternetConnection;
 import com.sonikpalms.intern.Link.Link;
 import com.sonikpalms.intern.Link.RetroClient;
@@ -55,6 +56,11 @@ public class FragmentButton extends Fragment {
     private List<MyItems> items;
     private Gson gson = new GsonBuilder().create();
     private ImageView imageViewSpecial;
+    private ProgressBar progressBar;
+
+
+    private Database database;
+
     //private  Context ctx;
     //private url
 
@@ -74,6 +80,10 @@ public class FragmentButton extends Fragment {
 
         items = new ArrayList<>();
         // adapter = new MyAdapter(items,getContext());
+        database = new Database(getContext());
+        database.open();
+        database.clearData();
+
 
         tasksListView = (RecyclerView) v.findViewById(R.id.list_item);
         imageViewSpecial = (ImageView) v.findViewById(R.id.imageViewUrlToImage);

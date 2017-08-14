@@ -86,11 +86,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
        // holder.imageViewUrlToImage.setImageDrawable(Drawable.createFromPath(items.get(position).getUrlToImage()));
-      // holder.textViewPublishedAt.setText(items.get(position).getPublishedAt());
-     //   holder.textViewUrl.setText(items.get(position).getUrl());
-       // holder.textViewDescription.setText(items.get(position).getDescription());
+      holder.textViewPublishedAt.setText(items.get(position).getPublishedAt());
+     // holder.textViewUrl.setText(items.get(position).getUrl());
+       holder.textViewDescription.setText(items.get(position).getDescription());
        holder.textViewTitle.setText(items.get(position).getTitle());
-     //   holder.textViewAuthor.setText((Integer) items.get(position).getAuthor());
+       holder.textViewAuthor.setText(items.get(position).getAuthor());
 
 
 

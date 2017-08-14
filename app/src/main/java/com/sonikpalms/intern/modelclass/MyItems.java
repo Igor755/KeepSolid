@@ -21,7 +21,7 @@ public class MyItems {
 
     @SerializedName("author")
     @Expose
-    private Object author;
+    private String author;
 
     @SerializedName("title")
     @Expose
@@ -43,7 +43,7 @@ public class MyItems {
     @Expose
     private String publishedAt;
 
-    public MyItems(Object author, String title, String description, String url, String urlToImage, String publishedAt) {
+    public MyItems(String author, String title, String description, String url, String urlToImage, String publishedAt) {
         this.author = author;
         this.title = title;
         this.description = description;
@@ -53,11 +53,11 @@ public class MyItems {
     }
 
 
-    public Object getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Object author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
