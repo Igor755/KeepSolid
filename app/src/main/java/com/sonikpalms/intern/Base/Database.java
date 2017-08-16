@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Sonikpalms on 13.08.2017.
  */
-//// TODO: 14.08.2017 write class
+
 public class Database {
 
     private final Context ctx;
@@ -49,45 +49,39 @@ public class Database {
         mDB.delete(Const.DB_TABLE_NAME, null, null);
     }
 
-    private void addRec(MyItems item) {
+    private void addNews(MyItems item) {
         ContentValues cv = new ContentValues();
-        cv.put(Const.DB_COL_DESCRIPTION, item.getTitle());
-        cv.put(Const.DB_COL_ID, item.getUrlToImage());
-       // cv.put(Const.DB_COL_NAME, item.getRepoName());
-        //cv.put(Const.DB_COL_URL, item.getWebUrl().toString());
-
+        cv.put(Const.DB_COL_NAME, item.getTitle());
+        cv.put(Const.DB_COL_URL, item.getUrl());
+        cv.put(Const.DB_COL_URL_TO_IMAGE, item.getUrlToImage());
         mDB.insert(Const.DB_TABLE_NAME, null, cv);
     }
 
-    public void addApiData(List<MyItems> items) {
-        if(items.size() != 0) {
-            for(int i = items.size()-1; i>=0; i--) {
-                addRec(items.get(i));
+    public void addApiData(List<MyItems> news) {
+        if (news.size() != 0) {
+            for (int i = news.size() - 1; i >= 0; i--) {
+                addNews(news.get(i));
             }
         }
     }
 
-    /**
-     * Subclass of {@link android.database.sqlite.SQLiteOpenHelper} which provides custom database helper.
-     */
     private class DBHelper extends SQLiteOpenHelper {
 
-        public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
-                        int version) {
+        public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
             super(context, name, factory, version);
         }
 
         @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(Const.DB_CREATE);
+        public void onCreate(SQLiteDatabase sqLiteDatabase) {
+            sqLiteDatabase.execSQL(Const.DB_CREATE);
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL(Const.DB_DELETE_ENTRIES);
-            onCreate(db);
+        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+            sqLiteDatabase.execSQL(Const.DB_DELETE_ENTRIES);
+            onCreate(sqLiteDatabase);
         }
     }
-
 }
+
 

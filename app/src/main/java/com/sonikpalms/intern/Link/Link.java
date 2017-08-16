@@ -11,6 +11,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by Sonikpalms on 09.08.2017.
@@ -21,4 +22,8 @@ public interface Link {
     //todo have to 30 news
     @GET("v1/articles?source=the-times-of-india&sortBy=latest&apiKey=ee4f08cf787540f5be2b9276684e9efe")
     Call<MyItemsGson> getMyJson();
+
+
+
+
 }

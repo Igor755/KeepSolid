@@ -3,6 +3,7 @@ package com.sonikpalms.intern.com.sonikpalms.fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.*;
+import com.sonikpalms.intern.Base.Const;
 import com.sonikpalms.intern.Base.Database;
 import com.sonikpalms.intern.InternetConnection.InternetConnection;
 import com.sonikpalms.intern.Link.Link;
@@ -41,11 +43,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class FragmentButton extends Fragment {
 
-    private final String URL = "https://newsapi.org";
-    private final String KEY = "f95725ad56c04956b0f37a5a4e1d36b1";
+   // private final String URL = "https://newsapi.org";
+  // private final String KEY = "f95725ad56c04956b0f37a5a4e1d36b1";
 
 
     private RecyclerView tasksListView;
@@ -74,6 +78,12 @@ public class FragmentButton extends Fragment {
     private void makeErrorToast(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        database.close();
+    }
+
 
 
     @Override
@@ -84,9 +94,16 @@ public class FragmentButton extends Fragment {
         items = new ArrayList<>();
         // adapter = new MyAdapter(items,getContext());
 
-        //database = new Database(getContext());
-        //database.open();
-        //database.clearData();
+        database = new Database(getContext());
+        database.open();
+        database.clearData();
+
+
+        SharedPreferences preferences;
+
+
+
+
 
 
         tasksListView = (RecyclerView) v.findViewById(R.id.list_item);
@@ -172,6 +189,7 @@ public class FragmentButton extends Fragment {
                 }
             }
         });
+
         return v;
 
 
