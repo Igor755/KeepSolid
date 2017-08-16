@@ -63,7 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
                 if (listener != null) {
                     listener.onItemClick(view, viewHolder.getAdapterPosition());
-                    view.setBackgroundColor(Color.rgb(150, 156, 255));
+                    //view.setBackgroundColor(Color.rgb(150, 156, 255));
 
 
 

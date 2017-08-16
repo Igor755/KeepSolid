@@ -1,8 +1,12 @@
 package com.sonikpalms.intern.com.sonikpalms.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -11,6 +15,7 @@ import android.view.ViewGroup;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 import com.google.gson.Gson;
@@ -30,19 +35,11 @@ import com.sonikpalms.intern.modelclass.MyItemsGson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-
-import static com.sonikpalms.intern.R.id.imageView;
-import static com.sonikpalms.intern.R.id.imageViewUrlToImage;
 
 
 public class FragmentButton extends Fragment {
@@ -61,16 +58,22 @@ public class FragmentButton extends Fragment {
 
     private Database database;
 
-    //private  Context ctx;
-    //private url
+    private void showProgressBlock() {
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
+    }
 
-    //   private Retrofit retrofit = new Retrofit.Builder()
-    //        .addConverterFactory(GsonConverterFactory.create(gson))
-    //        .baseUrl(URL)
-    //       .build();
+    private void hideProgressBlock() {
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
 
-    //   private Link inter = retrofit.create(Link.class);
+    private void makeErrorToast(String errorMessage) {
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+    }
 
 
     @Override
@@ -80,171 +83,100 @@ public class FragmentButton extends Fragment {
 
         items = new ArrayList<>();
         // adapter = new MyAdapter(items,getContext());
-        database = new Database(getContext());
-        database.open();
-        database.clearData();
+
+        //database = new Database(getContext());
+        //database.open();
+        //database.clearData();
 
 
         tasksListView = (RecyclerView) v.findViewById(R.id.list_item);
         imageViewSpecial = (ImageView) v.findViewById(R.id.imageViewUrlToImage);
 
 
-        Link link = RetroClient.getApiService();
-        Call<MyItemsGson> call = link.getMyJson();
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        assert fab != null;
 
-
-        call.enqueue(new Callback<MyItemsGson>() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
-                if (response.isSuccessful()) {
-
-                    System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222");
-                    items = response.body().getArticles();
+            public void onClick(View view) {
 
 
-                    adapter = new MyAdapter((ArrayList<MyItems>) items, getActivity(), new OnItemsClickListener() {
+                Link link = RetroClient.getApiService();
+                Call<MyItemsGson> call = link.getMyJson();
 
+                if (InternetConnection.checkConnection(getActivity())) {
+                    final ProgressDialog dialog;
+                    dialog = new ProgressDialog(getContext());
+                    dialog.setTitle(getString(R.string.wait));
+                    dialog.setMessage(getString(R.string.connect));
+                    dialog.show();
+
+
+                    call.enqueue(new Callback<MyItemsGson>() {
 
                         @Override
-                        public void onItemClick(View v, int position) {
+                        public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
+                            if (response.isSuccessful()) {
 
-                            Intent intent = new Intent(getContext(), Receiver.class);
+                                dialog.dismiss();
+
+                                //// TODO: 15.08.2017 write onResponse
+
+                                System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222");
+                                items = response.body().getArticles();
 
 
-                            // intent.putExtra("Username", items.get(position).getTitle());
-                            intent.putExtra("urlNews", items.get(position).getUrl());
-                            //   intent.putExtra("UserStatus", items.get(position).getDescription());
-                            //   intent.putExtra("UserAddress", items.get(position).getPublishedAt());
-                            //   intent.putExtra("UserCategory", items.get(position).getUrlToImage());
-                            startActivityForResult(intent, 1);
+                                adapter = new MyAdapter((ArrayList<MyItems>) items, getActivity(), new OnItemsClickListener() {
+
+
+                                    @Override
+                                    public void onItemClick(View v, int position) {
+
+                                        Intent intent = new Intent(getContext(), Receiver.class);
+
+
+                                        // intent.putExtra("Username", items.get(position).getTitle());
+                                        intent.putExtra("urlNews", items.get(position).getUrl());
+                                        //   intent.putExtra("UserStatus", items.get(position).getDescription());
+                                        //   intent.putExtra("UserAddress", items.get(position).getPublishedAt());
+                                        //   intent.putExtra("UserCategory", items.get(position).getUrlToImage());
+                                        startActivityForResult(intent, 1);
+
+
+                                    }
+                                });
+                                tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                tasksListView.setAdapter(adapter);
+                            }
+                            else {
+                                Snackbar.make(null, null, Snackbar.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyItemsGson> call, Throwable t) {
+                            dialog.dismiss();
+
+
+                            t.printStackTrace();
+                            makeErrorToast("Error:" + t);
+                            hideProgressBlock();
 
 
                         }
-                    });
-                    tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    tasksListView.setAdapter(adapter);
 
+
+                    });
+                } else {
+                    Snackbar.make(null, null, Snackbar.LENGTH_SHORT).show();
                 }
             }
-
-            @Override
-            public void onFailure(Call<MyItemsGson> call, Throwable t) {
-                //// TODO: 15.08.2017 write on failure
-
-
-            }
         });
-        //tasksListView.setOnClickListener(new OnItemsClickListener() {
-
-
-        //      @Override
-        //      public void onItemClick(View v, int position) {
-
-        //     }
-        //   });
-
-
-/*
-        adapter = new MyAdapter((ArrayList<MyItems>) items, getActivity(), new OnItemsClickListener() {
-
-
-            @Override
-            public void onItemClick(View v, int position) {
-
-                Intent intent = new Intent(getContext(), Receiver.class);
-
-
-                intent.putExtra("Username", items.get(position).getTitle());
-                intent.putExtra("UserID", items.get(position).getUrl());
-                intent.putExtra("UserStatus", items.get(position).getDescription());
-                intent.putExtra("UserAddress", items.get(position).getPublishedAt());
-                intent.putExtra("UserCategory", items.get(position).getUrlToImage());
-                startActivityForResult(intent, 1);
-
-
-            }
-        });
-
-        //tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //tasksListView.setAdapter(adapter);
-
-
-
-
-//todo use internetconnection
-        if(InternetConnection.checkConnection(getActivity())){
-           // final ProgressDialog dialog;
-        }
-
-
-/*
-        items = new ArrayList<>();
-
-        items.add(new MyItems(false, "alexandr", MyItems.Category.Another, 1, "alexandr@gmail.com"));
-        items.add(new MyItems(true, "dieznote", MyItems.Category.Family, 2, "dieznote@gmail.com"));
-        items.add(new MyItems(true, "jonny", MyItems.Category.Friend, 3, "jonny@gmail.com"));
-        items.add(new MyItems(false, "vsibi", MyItems.Category.Work, 4, "vsibi@gmail.com"));
-        items.add(new MyItems(true, "artur.romasiuk", MyItems.Category.Work, 5, "artur.romasiuk@gmail.com"));
-        items.add(new MyItems(true, "catlerina", MyItems.Category.Work, 6, "catlerina@gmail.com"));
-        items.add(new MyItems(false, "cherepinina98", MyItems.Category.Another, 7, "cherepinina98@gmail.com"));
-        items.add(new MyItems(true, "d.shevtsov ", MyItems.Category.Friend, 8, "d.shevtsov@gmail.com"));
-        items.add(new MyItems(false, "dima_pd", MyItems.Category.Another, 9, "dima_pd@gmail.com"));
-
-        items.add(new MyItems(true, "dmitriiserdun", MyItems.Category.Family, 10, "dmitriiserdun@gmail.com"));
-        items.add(new MyItems(true, "eugene", MyItems.Category.Family, 11, "eugene@gmail.com"));
-        items.add(new MyItems(false, "nedomovnyvlad", MyItems.Category.Friend, 12, "nedomovnyvlad@gmail.com"));
-        items.add(new MyItems(true, "oleg", MyItems.Category.Another, 13, "oleg@gmail.com"));
-        items.add(new MyItems(false, "levil13", MyItems.Category.Friend, 14, "levil13@gmail.com"));
-        items.add(new MyItems(true, "qbikkx", MyItems.Category.Friend, 15, "qbikkx@gmail.com"));
-        items.add(new MyItems(true, "vadimprov", MyItems.Category.Work, 16, "vadimprov@gmail.com"));
-        items.add(new MyItems(false, "vladimir", MyItems.Category.Another, 17, "vladimir@gmail.com"));
-        items.add(new MyItems(true, "vliubchenko", MyItems.Category.Work, 18, "vliubchenko@gmail.com"));
-
-
-        Collections.sort(items, new Comparator<MyItems> () {
-            @Override
-            public int compare(MyItems element1, MyItems element2) {
-                if (element1.isOnline() == true) return -1;
-                else return 0;
-            }
-        });
-
-
-        tasksListView = (RecyclerView) v.findViewById(R.id.list_item);
-
-
-        System.out.println("luna");
-
-
-
-        adapter = new MyAdapter(items, getActivity(), new OnItemsClickListener() {
-
-
-            @Override
-            public void onItemClick(View v, int position) {
-
-
-               Intent intent = new Intent(getContext(), Receiver.class);
-
-
-                intent.putExtra("Username", items.get(position).getUserName());
-                intent.putExtra("UserID", items.get(position).getUserId());
-                intent.putExtra("UserStatus", items.get(position).isOnline());
-                intent.putExtra("UserAddress", items.get(position).getUserAddress());
-                intent.putExtra("UserCategory", items.get(position).getTaskCategory());
-                startActivityForResult(intent, 1);
-
-
-            }
-        });
-        tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        tasksListView.setAdapter(adapter);
-
-
-*/
         return v;
 
 
     }
 
+
 }
+

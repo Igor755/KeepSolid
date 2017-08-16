@@ -9,12 +9,12 @@ public class Const {
 //// TODO: 14.08.2017 write class
     // Configuration of a database
     public final static String DB_NAME = "app_db";
-    public final static String DB_TABLE_NAME = "repos";
+    public final static String DB_TABLE_NAME = "news";
     public final static String DB_COL_ID_PRIMARY = "_id";
-    public final static String DB_COL_ID = "repoId";
-    public final static String DB_COL_DESCRIPTION = "repoDescription";
-    public final static String DB_COL_NAME = "repoName";
-    public final static String DB_COL_URL = "repoURL";
+    public final static String DB_COL_ID = "newsId";
+    public final static String DB_COL_DESCRIPTION = "newsDescription";
+    public final static String DB_COL_NAME = "newsName";
+    public final static String DB_COL_URL = "newsURL";
     public final static int DB_VERSION = 1;
 
     // SQL Query
