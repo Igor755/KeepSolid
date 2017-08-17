@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sonikpalms.intern.adapters.MyAdapter;
 
+import java.sql.Statement;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -32,5 +34,7 @@ public class RetroClient {
     public static Link getApiService() {
         return getRetrofitInstance().create(Link.class);
     }
+
+
 
 }

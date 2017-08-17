@@ -6,6 +6,9 @@ package com.sonikpalms.intern.Base;
 
 public class Const {
 
+    public final static int LOADER_ID = 1;
+
+
 
     public final static String DB_NAME = "news_db";
     public final static String DB_TABLE_NAME = "news";

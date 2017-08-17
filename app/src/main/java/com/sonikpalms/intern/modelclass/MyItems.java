@@ -43,7 +43,7 @@ public class MyItems {
     @Expose
     private String publishedAt;
 
-    public MyItems(String author, String title, String description, String url, String urlToImage, String publishedAt) {
+    public MyItems() {
         this.author = author;
         this.title = title;
         this.description = description;

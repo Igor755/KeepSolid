@@ -7,6 +7,6 @@ import android.view.View;
  */
 
 public interface OnItemsClickListener {
-    public void onItemClick(View v, int position);
+    public void onItemClick(View v, String url, int position);
 
 }

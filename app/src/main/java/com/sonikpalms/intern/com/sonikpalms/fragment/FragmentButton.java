@@ -1,9 +1,12 @@
 package com.sonikpalms.intern.com.sonikpalms.fragment;
 
+import android.app.LoaderManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -28,9 +31,11 @@ import com.sonikpalms.intern.InternetConnection.InternetConnection;
 import com.sonikpalms.intern.Link.Link;
 import com.sonikpalms.intern.Link.RetroClient;
 import com.sonikpalms.intern.Listeners.OnItemsClickListener;
+import com.sonikpalms.intern.Loaders.IndianLoader;
 import com.sonikpalms.intern.R;
 import com.sonikpalms.intern.Receiver;
 import com.sonikpalms.intern.MainActivity;
+import com.sonikpalms.intern.adapters.DataAdapter;
 import com.sonikpalms.intern.adapters.MyAdapter;
 import com.sonikpalms.intern.modelclass.MyItems;
 import com.sonikpalms.intern.modelclass.MyItemsGson;
@@ -46,7 +51,7 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class FragmentButton extends Fragment {
+public class FragmentButton extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
    // private final String URL = "https://newsapi.org";
   // private final String KEY = "f95725ad56c04956b0f37a5a4e1d36b1";
@@ -54,6 +59,7 @@ public class FragmentButton extends Fragment {
 
     private RecyclerView tasksListView;
     private MyAdapter adapter;
+    private DataAdapter Dapter;
     private List<MyItems> items;
     private Gson gson = new GsonBuilder().create();
     private ImageView imageViewSpecial;
@@ -94,12 +100,13 @@ public class FragmentButton extends Fragment {
         items = new ArrayList<>();
         // adapter = new MyAdapter(items,getContext());
 
-        database = new Database(getContext());
+        database = new Database(getActivity());
         database.open();
-        database.clearData();
+       // database.clearData();
+        getActivity().getLoaderManager().initLoader(Const.LOADER_ID, null, this);
 
 
-        SharedPreferences preferences;
+
 
 
 
@@ -143,20 +150,14 @@ public class FragmentButton extends Fragment {
                                 items = response.body().getArticles();
 
 
-                                adapter = new MyAdapter((ArrayList<MyItems>) items, getActivity(), new OnItemsClickListener() {
+                                adapter = new MyAdapter(database.getAllData(), getActivity(), new OnItemsClickListener() {
 
 
                                     @Override
-                                    public void onItemClick(View v, int position) {
+                                    public void onItemClick(View v,String url, int position) {
 
                                         Intent intent = new Intent(getContext(), Receiver.class);
-
-
-                                        // intent.putExtra("Username", items.get(position).getTitle());
                                         intent.putExtra("urlNews", items.get(position).getUrl());
-                                        //   intent.putExtra("UserStatus", items.get(position).getDescription());
-                                        //   intent.putExtra("UserAddress", items.get(position).getPublishedAt());
-                                        //   intent.putExtra("UserCategory", items.get(position).getUrlToImage());
                                         startActivityForResult(intent, 1);
 
 
@@ -195,6 +196,24 @@ public class FragmentButton extends Fragment {
 
     }
 
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        return new IndianLoader(getActivity());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        //initAdapter();
+        Dapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+
+    }
 
 }
 
