@@ -41,7 +41,7 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
     private Context ctx;
     private OnItemsClickListener listener;
 
-    public MyAdapter(Cursor cursor, Context context, OnItemsClickListener urlNews) {
+    public MyAdapter(Cursor cursor, Context context) {
         super(context, cursor);
     }
 

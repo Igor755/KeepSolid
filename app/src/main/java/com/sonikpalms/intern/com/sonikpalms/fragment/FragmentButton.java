@@ -125,31 +125,40 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
             public void onClick(View view) {
 
 
-                Link link = RetroClient.getApiService();
-                Call<MyItemsGson> call = link.getMyJson();
-
-                if (InternetConnection.checkConnection(getActivity())) {
-                    final ProgressDialog dialog;
-                    dialog = new ProgressDialog(getContext());
-                    dialog.setTitle(getString(R.string.wait));
-                    dialog.setMessage(getString(R.string.connect));
-                    dialog.show();
+            }
 
 
-                    call.enqueue(new Callback<MyItemsGson>() {
 
-                        @Override
-                        public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
-                            if (response.isSuccessful()) {
+    public void initAdapter(){
+        if (adapter == null) {
+            adapter = new MyAdapter(database.getAllData(), getContext());
+            Link link = RetroClient.getApiService();
+            Call<MyItemsGson> call = link.getMyJson();
 
-                                dialog.dismiss();
+            if (InternetConnection.checkConnection(getActivity())) {
+                final ProgressDialog dialog;
+                dialog = new ProgressDialog(getContext());
+                dialog.setTitle(getString(R.string.wait));
+                dialog.setMessage(getString(R.string.connect));
+                dialog.show();
 
-                                //// TODO: 15.08.2017 write onResponse
 
-                                System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222");
-                                items = response.body().getArticles();
+                call.enqueue(new Callback<MyItemsGson>() {
+
+                    @Override
+                    public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
+                        if (response.isSuccessful()) {
+
+                            dialog.dismiss();
+
+                            //// TODO: 15.08.2017 write onResponse
+
+                            System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222");
+                            items = response.body().getArticles();
 
 
+
+/*
                                 adapter = new MyAdapter(database.getAllData(), getActivity(), new OnItemsClickListener() {
 
 
@@ -162,39 +171,40 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
 
 
                                     }
-                                });
-                                tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                tasksListView.setAdapter(adapter);
-                            }
-                            else {
-                                Snackbar.make(null, null, Snackbar.LENGTH_SHORT).show();
-                            }
+                                });*/
+                            tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            tasksListView.setAdapter(adapter);
                         }
-
-                        @Override
-                        public void onFailure(Call<MyItemsGson> call, Throwable t) {
-                            dialog.dismiss();
-
-
-                            t.printStackTrace();
-                            makeErrorToast("Error:" + t);
-                            hideProgressBlock();
-
-
+                        else {
+                            Snackbar.make(null, null, Snackbar.LENGTH_SHORT).show();
                         }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MyItemsGson> call, Throwable t) {
+                        dialog.dismiss();
 
 
-                    });
-                } else {
-                    Snackbar.make(null, null, Snackbar.LENGTH_SHORT).show();
-                }
+                        t.printStackTrace();
+                        makeErrorToast("Error:" + t);
+                        hideProgressBlock();
+
+
+                    }
+
+
+                });
+            } else {
+                Snackbar.make(null, null, Snackbar.LENGTH_SHORT).show();
             }
+
         });
 
-        return v;
-
-
     }
+
+
+
+
 
 
     @Override
@@ -205,7 +215,7 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        //initAdapter();
+        initAdapter();
         Dapter.swapCursor(cursor);
     }
 
@@ -216,4 +226,3 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
     }
 
 }
-
