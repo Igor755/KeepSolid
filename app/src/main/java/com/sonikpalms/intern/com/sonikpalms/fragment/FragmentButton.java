@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,10 +52,7 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class FragmentButton extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
-
-   // private final String URL = "https://newsapi.org";
-  // private final String KEY = "f95725ad56c04956b0f37a5a4e1d36b1";
+public class FragmentButton extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
     private RecyclerView tasksListView;
@@ -68,29 +66,6 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
 
     private Database database;
 
-    private void showProgressBlock() {
-        if (progressBar != null) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    private void hideProgressBlock() {
-        if (progressBar != null) {
-            progressBar.setVisibility(View.GONE);
-        }
-    }
-
-    private void makeErrorToast(String errorMessage) {
-        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        database.close();
-    }
-
-
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -102,19 +77,29 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
 
         database = new Database(getActivity());
         database.open();
-       // database.clearData();
+        database.clearData();
         getActivity().getLoaderManager().initLoader(Const.LOADER_ID, null, this);
-
-
-
-
-
-
-
 
 
         tasksListView = (RecyclerView) v.findViewById(R.id.list_item);
         imageViewSpecial = (ImageView) v.findViewById(R.id.imageViewUrlToImage);
+
+
+        adapter = new MyAdapter(database.getAllData(), getActivity(), new OnItemsClickListener() {
+
+
+            @Override
+            public void onItemClick(View v, String url, int position) {
+
+                Intent intent = new Intent(getContext(), Receiver.class);
+                intent.putExtra("urlNews", items.get(position).getUrl());
+                startActivityForResult(intent, 1);
+
+
+            }
+        });
+        tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        tasksListView.setAdapter(adapter);
 
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
@@ -125,104 +110,127 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
             public void onClick(View view) {
 
 
+                if (InternetConnection.checkConnection(getActivity())) {
+                    final ProgressDialog dialog;
+                    dialog = new ProgressDialog(getContext());
+                    dialog.setTitle(getString(R.string.wait));
+                    dialog.setMessage(getString(R.string.connect));
+                    dialog.show();
+
+
+                }
+            }
+
+            private void showProgressBlock() {
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            private void hideProgressBlock() {
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+
+            private void makeErrorToast(String errorMessage) {
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+
+            /*@Override
+            public void onDestroy() {
+                super.onDestroy();
+                getLoaderManager().destroyLoader(Const.LOADER_ID);
+                database.close();
+            }
+
+            public void initAdapter() {
+                if (adapter == null) {
+                    adapter = new MyAdapter(database.getAllData(), getContext());
+                    Link link = RetroClient.getApiService();
+                    Call<MyItemsGson> call = link.getMyJson();
+
+
+
+
+                        call.enqueue(new Callback<MyItemsGson>() {
+
+                            @Override
+                            public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
+                                if (response.isSuccessful()) {
+
+                                    dialog.dismiss();
+
+                                    //// TODO: 15.08.2017 write onResponse
+
+                                    System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222");
+                                    items = response.body().getArticles();
+
+
+
+
+
+
+                                } else {
+                                    Snackbar.make(null, null, Snackbar.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<MyItemsGson> call, Throwable t) {
+                                dialog.dismiss();
+
+
+                                t.printStackTrace();
+                                makeErrorToast("Error:" + t);
+                                hideProgressBlock();
+
+
+                            }
+
+
+                        });
+                    } else {
+                        Snackbar.make(null, null, Snackbar.LENGTH_SHORT).show();
+                    }
+
+                }*/
+
+
+            @Override
+            public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+                return new IndianLoader(getActivity());
+            }
+
+            @Override
+            public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+                initAdapter();
+                Dapter.swapCursor(cursor);
+            }
+
+            @Override
+            public void onLoaderReset(Loader<Cursor> loader) {
+
+
             }
 
 
+            static class MyCursorLoader extends CursorLoader {
 
-    public void initAdapter(){
-        if (adapter == null) {
-            adapter = new MyAdapter(database.getAllData(), getContext());
-            Link link = RetroClient.getApiService();
-            Call<MyItemsGson> call = link.getMyJson();
+                Database db;
 
-            if (InternetConnection.checkConnection(getActivity())) {
-                final ProgressDialog dialog;
-                dialog = new ProgressDialog(getContext());
-                dialog.setTitle(getString(R.string.wait));
-                dialog.setMessage(getString(R.string.connect));
-                dialog.show();
+                public MyCursorLoader(Context context, Database db) {
+                    super(context);
+                    this.db = db;
+                }
 
+                @Override
+                public Cursor loadInBackground() {
+                    return db.getAllData();
+                }
 
-                call.enqueue(new Callback<MyItemsGson>() {
-
-                    @Override
-                    public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
-                        if (response.isSuccessful()) {
-
-                            dialog.dismiss();
-
-                            //// TODO: 15.08.2017 write onResponse
-
-                            System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222");
-                            items = response.body().getArticles();
-
-
-
-/*
-                                adapter = new MyAdapter(database.getAllData(), getActivity(), new OnItemsClickListener() {
-
-
-                                    @Override
-                                    public void onItemClick(View v,String url, int position) {
-
-                                        Intent intent = new Intent(getContext(), Receiver.class);
-                                        intent.putExtra("urlNews", items.get(position).getUrl());
-                                        startActivityForResult(intent, 1);
-
-
-                                    }
-                                });*/
-                            tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            tasksListView.setAdapter(adapter);
-                        }
-                        else {
-                            Snackbar.make(null, null, Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<MyItemsGson> call, Throwable t) {
-                        dialog.dismiss();
-
-
-                        t.printStackTrace();
-                        makeErrorToast("Error:" + t);
-                        hideProgressBlock();
-
-
-                    }
-
-
-                });
-            } else {
-                Snackbar.make(null, null, Snackbar.LENGTH_SHORT).show();
             }
 
-        });
-
-    }
-
-
-
-
-
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
-        return new IndianLoader(getActivity());
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        initAdapter();
-        Dapter.swapCursor(cursor);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-
-    }
-
-}
+        }

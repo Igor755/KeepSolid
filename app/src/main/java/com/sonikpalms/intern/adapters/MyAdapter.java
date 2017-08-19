@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +45,12 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
     public MyAdapter(Cursor cursor, Context context) {
         super(context, cursor);
     }
+    public MyAdapter(Cursor cursor, Context ctx, OnItemsClickListener listener) {
+        super(ctx, cursor);
+        this.ctx = ctx;
+        this.listener = listener;
+    }
+
 
 
 
