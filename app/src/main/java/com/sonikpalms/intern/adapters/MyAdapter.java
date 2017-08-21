@@ -105,10 +105,7 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
 
 
 
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
+
 
     public ArrayList<MyItems> getItems() {
         return items;
