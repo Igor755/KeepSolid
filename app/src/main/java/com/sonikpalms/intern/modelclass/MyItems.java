@@ -8,6 +8,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
@@ -18,6 +19,8 @@ import java.util.List;
 
 
 public class MyItems {
+
+    private transient int id;
 
     @SerializedName("author")
     @Expose
@@ -44,12 +47,21 @@ public class MyItems {
     private String publishedAt;
 
     public MyItems() {
-        this.author = author;
-        this.title = title;
-        this.description = description;
-        this.url = url;
-        this.urlToImage = urlToImage;
-        this.publishedAt = publishedAt;
+        this.author = this.author;
+        this.title = this.title;
+        this.description = this.description;
+        this.url = this.url;
+        this.urlToImage = this.urlToImage;
+        this.publishedAt = this.publishedAt;
+    }
+
+
+
+    public void setId(){
+        id = hashCode();
+    }
+    public int getId(){
+        return id;
     }
 
 

@@ -10,6 +10,7 @@ import com.sonikpalms.intern.com.sonikpalms.fragment.FragmentButton;
 import com.sonikpalms.intern.modelclass.MyItems;
 import com.sonikpalms.intern.modelclass.MyItemsGson;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -51,12 +52,17 @@ public class Database {
 
     private void addNews(MyItems item) {
         ContentValues cv = new ContentValues();
+        //cv.put(Const.DB_COL_ID, item.getId());
         cv.put(Const.DB_COL_NAME, item.getTitle());
-        cv.put(Const.DB_COL_URL, item.getUrl());
+        //cv.put(Const.DB_COL_URL, item.getUrl());
         cv.put(Const.DB_COL_URL_TO_IMAGE, item.getUrlToImage());
-        cv.put(Const.DB_COL_AUTHOR, item.getAuthor());
-        cv.put(Const.DB_COL_DESCRIPTION, item.getDescription());
-        cv.put(Const.DB_COL_PUBLISHEDAT, item.getPublishedAt());
+       // cv.put(Const.DB_COL_AUTHOR, item.getAuthor());
+        //cv.put(Const.DB_COL_DESCRIPTION, item.getDescription());
+
+
+
+       cv.put(Const.DB_COL_PUBLISHEAT, item.getPublishedAt());
+
         mDB.insert(Const.DB_TABLE_NAME, null, cv);
     }
 
