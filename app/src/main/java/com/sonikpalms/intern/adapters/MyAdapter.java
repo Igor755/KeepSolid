@@ -2,11 +2,7 @@ package com.sonikpalms.intern.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MotionEventCompat;
+
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -84,6 +80,10 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
 
         holder.textViewTitle.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_NAME)));
         Picasso.with(ctx).load(cursor.getString(cursor.getColumnIndex(Const.DB_COL_URL_TO_IMAGE))).into(holder.imageViewUrlToImage);
+        holder.textViewUrl.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_URL)));
+        //holder.textViewAuthor.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_AUTHOR)));
+        //holder.textViewDescription.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_DESCRIPTION)));
+        //holder.textViewPublishedAt.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_PUBLISHEDAT)));
 
 
 
@@ -97,6 +97,9 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
             news.setTitle(cursor.getString(cursor.getColumnIndex(Const.DB_COL_NAME)));
             news.setUrl(cursor.getString(cursor.getColumnIndex(Const.DB_COL_URL)));
             news.setUrlToImage(cursor.getString(cursor.getColumnIndex(Const.DB_COL_URL_TO_IMAGE)));
+            news.setAuthor(cursor.getString(cursor.getColumnIndex(Const.DB_COL_AUTHOR)));
+            news.setDescription(cursor.getString(cursor.getColumnIndex(Const.DB_COL_DESCRIPTION)));
+           news.setPublishedAt(cursor.getString(cursor.getColumnIndex(Const.DB_COL_PUBLISHEDAT)));
         }
 
         return news;

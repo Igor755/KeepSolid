@@ -13,6 +13,6 @@
     <string name="remove">Remove</string>
     <string name="replace">Replace</string>
     <string name="wait">Wait</string>
-    <string name="connect">Connect</string>
+    <string name="update">Update</string>
 
 </resources>

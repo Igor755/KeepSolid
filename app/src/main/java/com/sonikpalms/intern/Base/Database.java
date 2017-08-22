@@ -54,6 +54,9 @@ public class Database {
         cv.put(Const.DB_COL_NAME, item.getTitle());
         cv.put(Const.DB_COL_URL, item.getUrl());
         cv.put(Const.DB_COL_URL_TO_IMAGE, item.getUrlToImage());
+        cv.put(Const.DB_COL_AUTHOR, item.getAuthor());
+        cv.put(Const.DB_COL_DESCRIPTION, item.getDescription());
+        cv.put(Const.DB_COL_PUBLISHEDAT, item.getPublishedAt());
         mDB.insert(Const.DB_TABLE_NAME, null, cv);
     }
 

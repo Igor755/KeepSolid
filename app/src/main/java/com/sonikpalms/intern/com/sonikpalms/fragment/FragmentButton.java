@@ -80,6 +80,7 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
         imageViewSpecial = (ImageView) v.findViewById(R.id.imageViewUrlToImage);
 
 
+
         adapter = new MyAdapter(database.getAllData(), getActivity(), new OnItemsClickListener() {
 
 
@@ -97,9 +98,6 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
         tasksListView.setAdapter(adapter);
 
 
-
-
-
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
         assert fab != null;
 
@@ -108,17 +106,8 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
             @Override
             public void onClick(View view) {
 
+                    initAdapter();
 
-                //  if (InternetConnection.checkConnection(getActivity())) {
-                //   final ProgressDialog dialog;
-                //   dialog = new ProgressDialog(getContext());
-                //   dialog.setTitle(getString(R.string.wait));
-                //  dialog.setMessage(getString(R.string.connect));
-                //  dialog.show();
-                initAdapter();
-
-
-                // }
             }
 
             private void showProgressBlock() {
@@ -140,60 +129,56 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
 
             public void initAdapter() {
 
-
-                //  if (adapter == null) {
-
-
-               // adapter = new MyAdapter(database.getAllData(), getContext());
-                Link link = RetroClient.getApiService();
-                Call<MyItemsGson> call = link.getMyJson();
-
+                if (InternetConnection.checkConnection(getActivity())) {
+                    final ProgressDialog dialog;
+                    dialog = new ProgressDialog(getContext());
+                    dialog.setTitle(getString(R.string.wait));
+                    dialog.setMessage(getString(R.string.update));
+                    dialog.show();
 
 
+                    Link link = RetroClient.getApiService();
+                    Call<MyItemsGson> call = link.getMyJson();
 
 
-                call.enqueue(new Callback<MyItemsGson>() {
+                    call.enqueue(new Callback<MyItemsGson>() {
 
-                    @Override
-                    public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
-                        if (response.isSuccessful()) {
-
-
+                        @Override
+                        public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
+                            if (response.isSuccessful()) {
 
 
-                            database.addApiData(response.body().getArticles());
+                                database.addApiData(response.body().getArticles());
 
-                            adapter.swapCursor(database.getAllData());
+                                adapter.swapCursor(database.getAllData());
+                                hideProgressBlock();
+                                tasksListView.getAdapter().notifyDataSetChanged();
+                                dialog.dismiss();
+
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyItemsGson> call, Throwable t) {
+
+                            dialog.dismiss();
+                            t.printStackTrace();
+                            makeErrorToast("Error:" + t);
                             hideProgressBlock();
-                            tasksListView.getAdapter().notifyDataSetChanged();
-
-
 
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<MyItemsGson> call, Throwable t) {
 
 
-                        t.printStackTrace();
-                        makeErrorToast("Error:" + t);
-                        hideProgressBlock();
-
-                    }
-
-                });
-
+                    });
+                }
             }
 
-
-            // }
 
         });
 
         return v;
     }
-
 
 
     @Override
