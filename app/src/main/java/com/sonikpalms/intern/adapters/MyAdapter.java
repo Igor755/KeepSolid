@@ -41,6 +41,7 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
     public MyAdapter(Cursor cursor, Context context) {
         super(context, cursor);
     }
+
     public MyAdapter(Cursor cursor, Context ctx, OnItemsClickListener listener) {
         super(ctx, cursor);
         this.ctx = ctx;
@@ -48,13 +49,10 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
     }
 
 
-
-
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_one_item, viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(view);
-
 
 
         view.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +62,6 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
                 if (listener != null) {
                     listener.onItemClick(view, null, viewHolder.getAdapterPosition());
                     //view.setBackgroundColor(Color.rgb(150, 156, 255));
-
 
 
                 }
@@ -80,15 +77,14 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
 
         holder.textViewTitle.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_NAME)));
         Picasso.with(ctx).load(cursor.getString(cursor.getColumnIndex(Const.DB_COL_URL_TO_IMAGE))).into(holder.imageViewUrlToImage);
-        holder.textViewUrl.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_URL)));
-        //holder.textViewAuthor.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_AUTHOR)));
-        //holder.textViewDescription.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_DESCRIPTION)));
+        //holder.textViewUrl.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_URL)));
+        holder.textViewAuthor.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_AUTHOR)));
+        holder.textViewDescription.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_DESCRIPTION)));
         holder.textViewPublishedAt.setText(cursor.getString(cursor.getColumnIndex(Const.DB_COL_PUBLISHEAT)));
 
 
-
-
     }
+
     public MyItems getNews(int position) {
         Cursor cursor = getCursor();
         MyItems news = new MyItems();
@@ -97,17 +93,13 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
             news.setTitle(cursor.getString(cursor.getColumnIndex(Const.DB_COL_NAME)));
             news.setUrl(cursor.getString(cursor.getColumnIndex(Const.DB_COL_URL)));
             news.setUrlToImage(cursor.getString(cursor.getColumnIndex(Const.DB_COL_URL_TO_IMAGE)));
-           // news.setAuthor(cursor.getString(cursor.getColumnIndex(Const.DB_COL_AUTHOR)));
-          //  news.setDescription(cursor.getString(cursor.getColumnIndex(Const.DB_COL_DESCRIPTION)));
-          news.setPublishedAt(cursor.getString(cursor.getColumnIndex(Const.DB_COL_PUBLISHEAT)));
+            news.setAuthor(cursor.getString(cursor.getColumnIndex(Const.DB_COL_AUTHOR)));
+            news.setDescription(cursor.getString(cursor.getColumnIndex(Const.DB_COL_DESCRIPTION)));
+            news.setPublishedAt(cursor.getString(cursor.getColumnIndex(Const.DB_COL_PUBLISHEAT)));
         }
 
         return news;
     }
-
-
-
-
 
 
     public ArrayList<MyItems> getItems() {
@@ -119,9 +111,7 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
     }
 
 
-
-
-    public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageViewUrlToImage;
 
@@ -133,7 +123,6 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
         TextView textViewAuthor;
 
 
-
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -143,9 +132,6 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
             textViewDescription = (TextView) itemView.findViewById(R.id.textViewDescription);
             textViewTitle = (TextView) itemView.findViewById(R.id.textViewTitle);
             textViewAuthor = (TextView) itemView.findViewById(R.id.textViewAuthor);
-
-
-
 
 
         }

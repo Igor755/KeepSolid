@@ -18,10 +18,11 @@ public class Const {
     public final static String DB_COL_NAME = "newsName";
     public final static String DB_COL_URL = "newsURL";
     public final static String DB_COL_URL_TO_IMAGE = "imageURL";
-   //public final static String DB_COL_AUTHOR = "newsAuthor";
-   // public final static String DB_COL_DESCRIPTION = "newsDescription";
+    public final static String DB_COL_AUTHOR = "newsAuthor";
+    public final static String DB_COL_DESCRIPTION = "newsDescription";
     public final static String DB_COL_PUBLISHEAT = "newsPublisheAt";
-    public final static int DB_VERSION = 2;
+
+    public final static int DB_VERSION = 3;
    // private static final int MAX_LINE = 30;
 
     public static final String DB_CREATE =
@@ -31,6 +32,8 @@ public class Const {
                     + DB_COL_NAME + " text, "
                     + DB_COL_URL + " text, "
                     + DB_COL_URL_TO_IMAGE + " text,"
+                    + DB_COL_AUTHOR + " text,"
+                    + DB_COL_DESCRIPTION + " text,"
                     + DB_COL_PUBLISHEAT  + " text," + " UNIQUE ( "
                     + DB_COL_ID + " ) ON CONFLICT IGNORE" + ");";
 

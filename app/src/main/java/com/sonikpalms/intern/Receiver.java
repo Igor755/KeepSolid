@@ -42,7 +42,7 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
         //webView.loadUrl("http://www.example.com");
         webView.getSettings().setJavaScriptEnabled(true);
         Intent intent = getIntent();
-        webView.loadUrl(intent.getStringExtra("urlNews"));
+        webView.loadUrl(intent.getStringExtra("newsURL"));
 
 
         webView.setWebViewClient(new MyWebViewClient());

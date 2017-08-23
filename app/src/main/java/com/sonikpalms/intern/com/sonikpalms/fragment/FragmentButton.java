@@ -81,6 +81,8 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
 
 
 
+
+
         adapter = new MyAdapter(database.getAllData(), getActivity(), new OnItemsClickListener() {
 
 
@@ -88,7 +90,7 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
             public void onItemClick(View v, String url, int position) {
 
                 Intent intent = new Intent(getContext(), Receiver.class);
-                intent.putExtra("urlNews", items.get(position).getUrl());
+                intent.putExtra("newsURL", items.get(position).getUrl());
                 startActivityForResult(intent, 1);
 
 
