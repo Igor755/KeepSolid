@@ -4,6 +4,8 @@ package com.sonikpalms.intern.modelclass;
  * Created by i.metlin on 26.07.2017.
  */
 
+import android.net.Uri;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

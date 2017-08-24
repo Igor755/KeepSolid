@@ -3,6 +3,7 @@ package com.sonikpalms.intern.adapters;
 import android.content.Context;
 import android.database.Cursor;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.sonikpalms.intern.Base.Const;
 import com.sonikpalms.intern.Listeners.OnItemsClickListener;
+import com.sonikpalms.intern.Listeners.OnRecyclerClickListener;
 import com.sonikpalms.intern.R;
 import com.sonikpalms.intern.modelclass.MyItems;
 import com.squareup.picasso.Picasso;
@@ -36,13 +38,13 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
 
     private ArrayList<MyItems> items;
     private Context ctx;
-    private OnItemsClickListener listener;
+    private OnRecyclerClickListener listener;
 
     public MyAdapter(Cursor cursor, Context context) {
         super(context, cursor);
     }
 
-    public MyAdapter(Cursor cursor, Context ctx, OnItemsClickListener listener) {
+    public MyAdapter(Cursor cursor, Context ctx, OnRecyclerClickListener listener) {
         super(ctx, cursor);
         this.ctx = ctx;
         this.listener = listener;
@@ -60,7 +62,7 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
             public void onClick(View view) {
 
                 if (listener != null) {
-                    listener.onItemClick(view, null, viewHolder.getAdapterPosition());
+                    listener.onItemClick(view, viewHolder.getAdapterPosition(), getNews(viewHolder.getAdapterPosition()).getUrl());
                     //view.setBackgroundColor(Color.rgb(150, 156, 255));
 
 
@@ -111,7 +113,7 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder  {
 
         ImageView imageViewUrlToImage;
 
@@ -136,10 +138,7 @@ public class MyAdapter extends DataAdapter<MyAdapter.ViewHolder> {
 
         }
 
-        @Override
-        public void onClick(View view) {
-            listener.onItemClick(view, getNews(getAdapterPosition()).getUrl(), getAdapterPosition());
-        }
+
     }
 
 

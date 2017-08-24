@@ -7,6 +7,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,6 +30,7 @@ import com.sonikpalms.intern.InternetConnection.InternetConnection;
 import com.sonikpalms.intern.Link.Link;
 import com.sonikpalms.intern.Link.RetroClient;
 import com.sonikpalms.intern.Listeners.OnItemsClickListener;
+import com.sonikpalms.intern.Listeners.OnRecyclerClickListener;
 import com.sonikpalms.intern.Loaders.IndianLoader;
 import com.sonikpalms.intern.MainActivity;
 import com.sonikpalms.intern.R;
@@ -78,108 +80,118 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
 
         tasksListView = (RecyclerView) v.findViewById(R.id.list_item);
         imageViewSpecial = (ImageView) v.findViewById(R.id.imageViewUrlToImage);
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        assert fab != null;
+
+        //showProgressBlock();
+
+        initAdapter();
 
 
-
-
-
-        adapter = new MyAdapter(database.getAllData(), getActivity(), new OnItemsClickListener() {
+        adapter = new MyAdapter(database.getAllData(), getActivity(), new OnRecyclerClickListener() {
 
 
             @Override
-            public void onItemClick(View v, String url, int position) {
-
+            public void onItemClick(View v, int position, String uri) {
                 Intent intent = new Intent(getContext(), Receiver.class);
-                intent.putExtra("newsURL", items.get(position).getUrl());
+                intent.putExtra("newsURL", uri);
                 startActivityForResult(intent, 1);
 
+                //if (getActivity() instanceof MainActivity) {
+                //((Receiver) getActivity()).showNews(mAdapter.getItems().get(position).getUrl());
 
             }
         });
         tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tasksListView.setAdapter(adapter);
 
-
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
-        assert fab != null;
-
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                    initAdapter();
+                initAdapter();
 
             }
-
-            private void showProgressBlock() {
-                if (progressBar != null) {
-                    progressBar.setVisibility(View.VISIBLE);
-                }
-
-            }
-
-            private void hideProgressBlock() {
-                if (progressBar != null) {
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-
-            private void makeErrorToast(String errorMessage) {
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-            }
-
-            public void initAdapter() {
-
-                if (InternetConnection.checkConnection(getActivity())) {
-                    final ProgressDialog dialog;
-                    dialog = new ProgressDialog(getContext());
-                    dialog.setTitle(getString(R.string.wait));
-                    dialog.setMessage(getString(R.string.update));
-                    dialog.show();
-
-
-                    Link link = RetroClient.getApiService();
-                    Call<MyItemsGson> call = link.getMyJson();
-
-
-                    call.enqueue(new Callback<MyItemsGson>() {
-
-                        @Override
-                        public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
-                            if (response.isSuccessful()) {
-
-
-                                database.addApiData(response.body().getArticles());
-
-                                adapter.swapCursor(database.getAllData());
-                                hideProgressBlock();
-                                tasksListView.getAdapter().notifyDataSetChanged();
-                                dialog.dismiss();
-
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<MyItemsGson> call, Throwable t) {
-
-                            dialog.dismiss();
-                            t.printStackTrace();
-                            makeErrorToast("Error:" + t);
-                            hideProgressBlock();
-
-                        }
-
-
-                    });
-                }
-            }
-
-
         });
 
         return v;
+    }
+
+    private void openRepo(Uri uri) {
+
+        Intent myIntent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(myIntent);
+
+    }
+
+
+    private void showProgressBlock() {
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    private void hideProgressBlock() {
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void makeErrorToast(String errorMessage) {
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void initAdapter() {
+
+        if (InternetConnection.checkConnection(getActivity())) {
+            final ProgressDialog dialog;
+            dialog = new ProgressDialog(getContext());
+            dialog.setTitle(getString(R.string.wait));
+            dialog.setMessage(getString(R.string.update));
+            dialog.show();
+
+
+            Link link = RetroClient.getApiService();
+            Call<MyItemsGson> call = link.getMyJson();
+
+
+            call.enqueue(new Callback<MyItemsGson>() {
+
+                @Override
+                public void onResponse(Call<MyItemsGson> call, Response<MyItemsGson> response) {
+                    if (response.isSuccessful()) {
+
+
+                        database.addApiData(response.body().getArticles());
+
+                        adapter.swapCursor(database.getAllData());
+                        hideProgressBlock();
+                        tasksListView.getAdapter().notifyDataSetChanged();
+                        dialog.dismiss();
+
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MyItemsGson> call, Throwable t) {
+
+                    dialog.dismiss();
+                    t.printStackTrace();
+                    makeErrorToast("Error:" + t);
+                    hideProgressBlock();
+
+                }
+
+
+            });
+
+
+        }
+
+
     }
 
 
