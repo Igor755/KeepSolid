@@ -19,8 +19,8 @@ import retrofit2.http.Query;
 
 public interface Link {
    // @FormUrlEncoded
-    //todo have to 30 news
-    @GET("v1/articles?source=the-times-of-india&sortBy=latest&apiKey=ee4f08cf787540f5be2b9276684e9efe")
+
+    @GET("v1/articles?source=the-times-of-india&sortBy=latest&apiKey=f7bfb84377e348b2b2b3fe2bd0d7156d")
     Call<MyItemsGson> getMyJson();
 
 

@@ -2,6 +2,7 @@ package com.sonikpalms.intern;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -23,6 +24,7 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
     private Button acceptButton, rejectButton;
     // private RadioButton isOnline;
     private WebView webView;
+    private SwipeRefreshLayout reload;
 
 
     @Override
@@ -38,14 +40,21 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
         acceptButton.setOnClickListener(this);
         rejectButton.setOnClickListener(this);
 
-        webView = (WebView) findViewById(R.id.webView);
-        //webView.loadUrl("http://www.example.com");
-        webView.getSettings().setJavaScriptEnabled(true);
-        Intent intent = getIntent();
-        webView.loadUrl(intent.getStringExtra("newsURL"));
 
 
-        webView.setWebViewClient(new MyWebViewClient());
+
+
+                webView = (WebView) findViewById(R.id.webView);
+                //webView.loadUrl("http://www.example.com");
+
+                webView.getSettings().setJavaScriptEnabled(true);
+                Intent intent = getIntent();
+                webView.loadUrl(intent.getStringExtra("newsURL"));
+
+
+                webView.setWebViewClient(new MyWebViewClient());
+
+
 
     }
     @Override

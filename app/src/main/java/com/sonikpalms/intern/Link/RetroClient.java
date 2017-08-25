@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.sonikpalms.intern.adapters.MyAdapter;
 
 import java.sql.Statement;
+import java.util.prefs.Preferences;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -27,6 +28,9 @@ public class RetroClient {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
+
+
+
 
 
         // private Link inter = retrofit.create(Link.class);

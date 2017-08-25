@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
 
 /**
  * Created by Sonikpalms on 24.08.2017.
+ * Dont use in programm
  */
 
 public class UriDesialized implements JsonDeserializer<Uri>{

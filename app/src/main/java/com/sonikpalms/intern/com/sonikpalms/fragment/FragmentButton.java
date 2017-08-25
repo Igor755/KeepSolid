@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +61,8 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
     private Gson gson = new GsonBuilder().create();
     private ImageView imageViewSpecial;
     private ProgressBar progressBar;
+    private OnRecyclerClickListener listener;
+    private SwipeRefreshLayout reload;
 
 
     private Database database;
@@ -88,6 +93,19 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
         initAdapter();
 
 
+        /*
+        This is standart divider
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(tasksListView.getContext(), 1);
+        tasksListView.addItemDecoration(dividerItemDecoration);
+        */
+
+        DividerItemDecoration divider = new DividerItemDecoration(tasksListView.getContext(), DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.deviderik));
+        tasksListView.addItemDecoration(divider);
+
+
+
+
         adapter = new MyAdapter(database.getAllData(), getActivity(), new OnRecyclerClickListener() {
 
 
@@ -97,13 +115,13 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
                 intent.putExtra("newsURL", uri);
                 startActivityForResult(intent, 1);
 
-                //if (getActivity() instanceof MainActivity) {
-                //((Receiver) getActivity()).showNews(mAdapter.getItems().get(position).getUrl());
+
 
             }
         });
         tasksListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tasksListView.setAdapter(adapter);
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,26 +135,15 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
         return v;
     }
 
-    private void openRepo(Uri uri) {
 
-        Intent myIntent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(myIntent);
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        listener = null;
+        database.close();
     }
 
 
-    private void showProgressBlock() {
-        if (progressBar != null) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    private void hideProgressBlock() {
-        if (progressBar != null) {
-            progressBar.setVisibility(View.GONE);
-        }
-    }
 
     private void makeErrorToast(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
@@ -167,7 +174,6 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
                         database.addApiData(response.body().getArticles());
 
                         adapter.swapCursor(database.getAllData());
-                        hideProgressBlock();
                         tasksListView.getAdapter().notifyDataSetChanged();
                         dialog.dismiss();
 
@@ -181,7 +187,7 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
                     dialog.dismiss();
                     t.printStackTrace();
                     makeErrorToast("Error:" + t);
-                    hideProgressBlock();
+
 
                 }
 
