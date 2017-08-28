@@ -8,13 +8,9 @@
     tools:context="com.sonikpalms.intern.Receiver"
     tools:showIn="@layout/activity_receiver">
 
-    <android.support.v4.widget.SwipeRefreshLayout
 
-        android:id="@+id/srl_reload"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 
 
@@ -45,8 +41,14 @@
         android:layout_below="@+id/reject_button"
         android:layout_alignParentStart="true" />
 
-
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/webView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp" />
 
 
 </RelativeLayout>

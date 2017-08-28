@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.sonikpalms.intern.Animation.TinglingSquaresView;
 import com.sonikpalms.intern.modelclass.MyItems;
 
 //import static com.sonikpalms.intern.modelclass.MyItems.Category.Family;
@@ -39,6 +40,9 @@ public class Receiver extends AppCompatActivity implements View.OnClickListener 
         rejectButton = (Button) findViewById(R.id.reject_button);
         acceptButton.setOnClickListener(this);
         rejectButton.setOnClickListener(this);
+
+        final TinglingSquaresView tsv = (TinglingSquaresView) findViewById(R.id.tinglingSquaresView);
+        tsv.runAnimation(9);
 
 
 
