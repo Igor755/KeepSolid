@@ -22,7 +22,7 @@ public class Const {
     public final static String DB_COL_DESCRIPTION = "newsDescription";
     public final static String DB_COL_PUBLISHEAT = "newsPublisheAt";
 
-    public final static int DB_VERSION = 3;
+    public final static int DB_VERSION = 4;
    // private static final int MAX_LINE = 30;
 
     public static final String DB_CREATE =

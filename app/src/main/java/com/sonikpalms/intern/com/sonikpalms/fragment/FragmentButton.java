@@ -100,7 +100,7 @@ public class FragmentButton extends Fragment implements LoaderManager.LoaderCall
         */
 
         DividerItemDecoration divider = new DividerItemDecoration(tasksListView.getContext(), DividerItemDecoration.VERTICAL);
-        divider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.reject1));
+        divider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.deviderik));
         tasksListView.addItemDecoration(divider);
 
 
