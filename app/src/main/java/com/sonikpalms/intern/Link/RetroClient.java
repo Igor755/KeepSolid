@@ -37,8 +37,15 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+
 /**
  * Created by Sonikpalms on 10.08.2017.
+ *
+ * 1)javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+ * Decided by https://stackoverflow.com/questions/27716001/how-to-post-https-request-using-retrofit
+ * create getUnsafeOkHttpClient and add
+ * .client(getUnsafeOkHttpClient()) in retrofit
  */
 
 public class RetroClient {
