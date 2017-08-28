@@ -22,10 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity2
+        <activity
             android:name=".Receiver"
             android:label="@string/title_activity_receiver"
-            android:theme="@style/AppTheme.NoActionBar"></activity2>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
